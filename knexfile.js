@@ -6,7 +6,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'manifold',
-      port: 5433,
+      port: 5445,
       user:     'manifold',
       password: 'manifold'
     },
