@@ -7,12 +7,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var reactify   = require('reactify');
 var spawn      = require('child_process').spawn;
 var install    = require('gulp-install');
-
-var getBundleName = function() {
-  var version = require('./package.json').version;
-  var name = require('./package.json').name;
-  return version + '.' + name + '.' + 'min';
-};
+var rename     = require('gulp-rename');
 
 gulp.task('install', function() {
   return gulp.src([ './package.json' ])
@@ -30,7 +25,7 @@ gulp.task('build', function() {
   var bundle = function() {
     return bundler
       .bundle()
-      .pipe(source(getBundleName() + '.js'))
+      .pipe(source('app.js'))
       .pipe(buffer())
       .pipe(sourcemaps.init({ loadMaps: true }))
         // Add transformation tasks to the pipeline here.
