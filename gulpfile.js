@@ -1,17 +1,23 @@
-var gulp = require('gulp');
+var gulp       = require('gulp');
 var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var uglify = require('gulp-uglify');
+var source     = require('vinyl-source-stream');
+var buffer     = require('vinyl-buffer');
+var uglify     = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
-var reactify = require('reactify');
+var reactify   = require('reactify');
+var spawn      = require('child_process').spawn;
+var install    = require('gulp-install');
 
-
-var getBundleName = function () {
+var getBundleName = function() {
   var version = require('./package.json').version;
   var name = require('./package.json').name;
   return version + '.' + name + '.' + 'min';
 };
+
+gulp.task('install', function() {
+  return gulp.src([ './package.json' ])
+    .pipe(install());
+});
 
 gulp.task('build', function() {
 
@@ -26,12 +32,45 @@ gulp.task('build', function() {
       .bundle()
       .pipe(source(getBundleName() + '.js'))
       .pipe(buffer())
-      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(sourcemaps.init({ loadMaps: true }))
         // Add transformation tasks to the pipeline here.
         .pipe(uglify())
       .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./client/build/js/'));
+      .pipe(gulp.dest('./build/js/'));
   };
 
   return bundle();
 });
+
+var server;
+function spawnServer(cb) {
+  if (server) {
+    server.on('exit', function() {
+      console.log('the server is down! Restarting...');
+      server = null;
+      spawnServer(cb);
+    });
+    server.kill();
+  } else {
+    server = spawn('node', [ 'server' ], { stdio: 'inherit' });
+    server.on('exit', function(code) {
+      server = null;
+
+      if (code && code !== 143) {
+        setTimeout(spawnServer, 500);
+      }
+    });
+
+    if (cb) {
+      cb();
+    }
+  }
+}
+
+gulp.task('server', [ 'build' ], spawnServer);
+
+gulp.task('watch', [ 'install', 'server' ], function() {
+  gulp.watch([ 'server/**/*.js', 'client/**/*.js', 'client/**/*.jsx' ], [ 'server' ]);
+});
+
+gulp.task('default', [ 'watch' ]);

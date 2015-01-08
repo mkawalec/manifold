@@ -1,6 +1,6 @@
 web:
   build: .
-  command: npm start
+  command: gulp
   volumes:
     - .:/code
   working_dir: /code
