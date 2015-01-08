@@ -1,0 +1,32 @@
+web:
+  build: .
+  command: npm start
+  volumes:
+    - .:/code
+  working_dir: /code
+  ports:
+    - "55555:55555"
+  links:
+    - postgres
+  environment:
+    POSTGRES_PASSWORD: manifold
+    POSTGRES_USER: manifold
+    POSTGRES_DATABASE: manifold
+ 
+pgdata:
+  image: busybox:latest
+  volumes:
+    - /var/lib/postgresql/data
+ 
+postgres:
+  image: postgres:9.4
+  ports:
+    - "5445:5432"
+  environment:
+    POSTGRES_PASSWORD: manifold
+    POSTGRES_USER: manifold
+    POSTGRES_DATABASE: manifold
+  volumes_from:
+    - pgdata
+  expose:
+    - "5432"  
