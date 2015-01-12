@@ -14,6 +14,7 @@ exports.up = function(knex, Promise) {
           addId(knex, t);
           t.string('username').notNull();
           t.string('password').notNull();
+          t.boolean('published').notNull().default(false);
 
           t.string('email');
         });

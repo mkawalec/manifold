@@ -12,10 +12,8 @@ var fluxApp  = require('./bootstrap');
 var indexTemplate = fs.readFileSync(__dirname + '/../../client/index.html').toString();
 
 Mustache.parse(indexTemplate);
-console.log('controller reached');
 
 function appHandler(request, reply) {
-  console.log('we are inside the handler');
   var route = fluxApp.matchRoute(request.path, {
     method : request.method
   });
