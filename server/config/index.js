@@ -12,6 +12,7 @@ var store = new Confidence.Store({
     env  : env
   },
   knex   : require('./knex'),
+  session : require('./session')
 });
 
 exports.get = function(key) {
