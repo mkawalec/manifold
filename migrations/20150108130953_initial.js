@@ -14,7 +14,6 @@ exports.up = function(knex, Promise) {
           addId(knex, t);
           t.string('username').notNull();
           t.string('password').notNull();
-          t.boolean('published').notNull().default(false);
 
           t.string('email');
         });
@@ -22,6 +21,7 @@ exports.up = function(knex, Promise) {
         return knex.schema.createTable('posts', function(t) {
           addId(knex, t);
           t.text('post');
+          t.boolean('published').notNull().default(false);
 
           t.timestamp('created_at').defaultTo(knex.raw('now()')).notNull();
           t.timestamp('updated_at');
