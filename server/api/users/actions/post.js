@@ -2,7 +2,6 @@
 var Joi = require('joi');
 var User = require('../model');
 
-
 function handler(request, reply) {
   User.Model.createUser(request.payload.username, request.payload.password)
     .then(function(data) {
