@@ -4,8 +4,11 @@ var User = require('../model');
 
 function handler(request, reply) {
   User.Model.createUser(request.payload.username, request.payload.password)
-    .then(function(data) {
-      reply('created').code(201);
+    .then(function(user) {
+      delete user.attributes.password;
+      delete user.attributes.salt;
+      
+      reply(user).code(201);
     }).catch(function(e) {
       reply(e.message).code(409);
     });

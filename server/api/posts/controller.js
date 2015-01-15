@@ -2,6 +2,7 @@
 
 module.exports = function(hapi) {
 
+  /*
   hapi.route({
     method: 'GET',
     path: '/api/posts/',
@@ -12,7 +13,7 @@ module.exports = function(hapi) {
     method: 'GET',
     path: '/api/posts/{postId}',
     config: require('./actions/fetch')
-  });
+  });*/
 
   hapi.route({
     method: 'POST',
@@ -20,6 +21,7 @@ module.exports = function(hapi) {
     config: require('./actions/post')
   });
 
+  /*
   hapi.route({
     method: 'PUT',
     path: '/api/posts/{postId}'
@@ -31,5 +33,5 @@ module.exports = function(hapi) {
     path: '/api/posts/{postId}'
     config: require('./actions/delete')
   });
-
+*/
 };

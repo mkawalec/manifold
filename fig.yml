@@ -9,9 +9,7 @@ web:
   links:
     - postgres
   environment:
-    POSTGRES_PASSWORD: manifold
-    POSTGRES_USER: manifold
-    POSTGRES_DATABASE: manifold
+    POSTGRES_URL: postgres://manifold:manifold@postgres/manifold
  
 pgdata:
   image: busybox:latest
@@ -28,5 +26,3 @@ postgres:
     POSTGRES_DATABASE: manifold
   volumes_from:
     - pgdata
-  expose:
-    - "5432"  

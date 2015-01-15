@@ -34,5 +34,5 @@ module.exports = {
       userId: Joi.string().regex(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
     })
   },
-  auth : 'session'
+  auth: 'session'
 }
