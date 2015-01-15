@@ -12,8 +12,10 @@ exports.up = function(knex, Promise) {
       .then(function() {
         return knex.schema.createTable('users', function(t) {
           addId(knex, t);
-          t.string('username').notNull();
+          t.string('username').unique().notNull();
+
           t.string('password').notNull();
+          t.string('salt').notNull();
 
           t.string('email');
         });

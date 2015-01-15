@@ -6,6 +6,7 @@ var serverConfig = config.get('/server');
 
 var hapi = new Hapi.Server();
 hapi.connection({ port: serverConfig.port, host: serverConfig.host });
+
 hapi.register(require('hapi-auth-cookie'), function() {
   hapi.auth.strategy('session', 'cookie', config.get('/session'));
 });

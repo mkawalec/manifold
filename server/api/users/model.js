@@ -11,7 +11,7 @@ var User = Bookshelf.PG.Model.extend(
     tableName: 'users'
   },
   {
-    comparePassword : function comparePassword(user, password) {
+    comparePassword: function comparePassword(user, password) {
       var hash = crypto.createHash('sha512');
       hash.update(user.get('salt') + password);
 
@@ -22,23 +22,21 @@ var User = Bookshelf.PG.Model.extend(
         user.get('password') === swappedHash.digest('base64');
     },
 
-    checkAuth : function checkAuth(login, password) {
+    checkAuth: function checkAuth(username, password) {
       return User
-        .forge({ email: login })
-        .fetch({ required: true })
+        .forge({ username: username })
+        .fetch({ require: true })
         .bind(this)
         .then(function(user) {
-          if (!this.comparePassword(user, password) {
+          if (!this.comparePassword(user, password)) {
             throw new Error('The password is incorrect');
-          });
-        })
-        .catch(User.NotFoundError, function() {
-          throw new Error('The username is incorrect');
+          };
+          return user;
         });
     },
 
-    createUser : function createUser(username, password) {
-      var salt = crypto.randomBytes(512);
+    createUser: function createUser(username, password) {
+      var salt = crypto.randomBytes(128).toString('base64');
       var hash = crypto.createHash('sha512');
       hash.update(salt + password);
 
@@ -48,10 +46,26 @@ var User = Bookshelf.PG.Model.extend(
         username: username
       })
       .save();
+    },
+
+    setPassword : function setPassword(password) {
+      var hash = crypto.createHash('sha512');
+      hash.update(user.get('salt') + password);
+
+      this.set({ password: hash.digest('base64') })
     }
   }
 );
 
+var Users = Bookshelf.PG.Collection.extend(
+  {
+    model: User
+  },
+  {
+  }
+);
+
 module.exports = {
-  Model : User
+  Model: User,
+  Collection: Users
 };

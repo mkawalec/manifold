@@ -20,7 +20,7 @@ function appHandler(request, reply) {
 
   if (! route) {
     console.log('not found!');
-    return reply('Not found').code(405);
+    return reply('Not found').code(404);
   }
 
   var componentClass = route.handler;
