@@ -2,6 +2,7 @@
 
 var Bookshelf = require('bookshelf');
 var Users = require('../users/model');
+var _ = require('lodash');
 
 
 var Post = Bookshelf.PG.Model.extend(
@@ -29,6 +30,10 @@ var Post = Bookshelf.PG.Model.extend(
   }
 );
 
+var TO_CLEAN = [
+  'password', 'salt', '_pivot_post_id', '_pivot_user_id' 
+];
+
 var Posts = Bookshelf.PG.Collection.extend(
   {
     model: Post
@@ -41,6 +46,22 @@ var Posts = Bookshelf.PG.Collection.extend(
             'authors'
           ]
         })
+        .then(function(posts) {
+          posts = JSON.parse(JSON.stringify(posts));
+
+          // We don't want certain columns, and there doesn't seem to be
+          // a cleaner way of doing that in bookshelf
+          return _.map(posts, function(post) {
+            post.authors = _.map(post.authors, function(author) {
+              _.forEach(TO_CLEAN, function(property) {
+                delete author[property];
+              });
+              return author;
+            });
+            return post;
+          });
+        });
+              
     }
   }
 );

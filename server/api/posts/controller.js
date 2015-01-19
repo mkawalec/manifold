@@ -2,13 +2,13 @@
 
 module.exports = function(hapi) {
 
-  /*
   hapi.route({
     method: 'GET',
     path: '/api/posts/',
     config: require('./actions/fetch-all')
   });
 
+  /*
   hapi.route({
     method: 'GET',
     path: '/api/posts/{postId}',
