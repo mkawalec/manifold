@@ -20,14 +20,12 @@ module.exports = function(hapi) {
     config: require('./actions/post')
   });
 
-  /*
   hapi.route({
     method: 'PUT',
-    path: '/api/posts/{postId}'
+    path: '/api/posts/{postId}',
     config: require('./actions/update')
   });
 
-*/
   hapi.route({
     method: 'DELETE',
     path: '/api/posts/{postId}',

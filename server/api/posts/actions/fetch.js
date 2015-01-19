@@ -22,6 +22,5 @@ module.exports = {
     params: Joi.object({
       postId: utils.JoiUUID
     })
-  },
-  auth: 'session'
+  }
 };

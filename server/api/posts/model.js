@@ -69,5 +69,7 @@ var Posts = Bookshelf.PG.Collection.extend(
 
 module.exports = {
   Model: Post,
-  Collection: Posts
+  Collection: Posts,
+
+  cleanRelated: cleanRelated
 };
