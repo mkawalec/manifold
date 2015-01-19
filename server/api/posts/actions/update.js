@@ -15,7 +15,6 @@ function handler(request, reply) {
     ]
   })
   .then(function(post) {
-    console.log(post.related('authors'));
     // If the user is not yet on the authors list, add her
     var isAuthor = _.some(post.related('authors').models, function(author) {
       return author.get('id') === request.auth.credentials.id;
