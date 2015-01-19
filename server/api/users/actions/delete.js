@@ -4,6 +4,7 @@ var _ = require('lodash');
 var Joi = require('joi');
 
 var createAction = require('./post');
+var utils = require('../../utils');
 
 function handler(request, reply) {
   if (request.auth.credentials.id !== request.params.userId) {
@@ -31,7 +32,7 @@ module.exports = {
   handler: handler,
   validate: {
     params: Joi.object({
-      userId: Joi.string().regex(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
+      userId: utils.JoiUUID
     })
   },
   auth: 'session'

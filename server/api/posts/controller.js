@@ -8,12 +8,11 @@ module.exports = function(hapi) {
     config: require('./actions/fetch-all')
   });
 
-  /*
   hapi.route({
     method: 'GET',
     path: '/api/posts/{postId}',
     config: require('./actions/fetch')
-  });*/
+  });
 
   hapi.route({
     method: 'POST',

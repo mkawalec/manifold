@@ -5,6 +5,20 @@ var Users = require('../users/model');
 var _ = require('lodash');
 
 
+var TO_CLEAN = [
+  'password', 'salt', '_pivot_post_id', '_pivot_user_id' 
+];
+
+function cleanRelated(post) {
+  post.authors = _.map(post.authors, function(author) {
+    _.forEach(TO_CLEAN, function(property) {
+      delete author[property];
+    });
+    return author;
+  });
+  return post;
+}
+
 var Post = Bookshelf.PG.Model.extend(
   {
     tableName: 'posts',
@@ -14,25 +28,20 @@ var Post = Bookshelf.PG.Model.extend(
   },
   {
     getPost: function(id) {
-      return Post.forge()
-        .query({
-          where: {
-            id: id
-          }
-        })
+      return Post.forge({ id: id })
         .fetch({
           require: true,
           withRelated: [
             'authors'
           ]
         })
+        .then(function(post) {
+          post = JSON.parse(JSON.stringify(post));
+          return cleanRelated(post);
+        });
     }
   }
 );
-
-var TO_CLEAN = [
-  'password', 'salt', '_pivot_post_id', '_pivot_user_id' 
-];
 
 var Posts = Bookshelf.PG.Collection.extend(
   {
@@ -51,15 +60,7 @@ var Posts = Bookshelf.PG.Collection.extend(
 
           // We don't want certain columns, and there doesn't seem to be
           // a cleaner way of doing that in bookshelf
-          return _.map(posts, function(post) {
-            post.authors = _.map(post.authors, function(author) {
-              _.forEach(TO_CLEAN, function(property) {
-                delete author[property];
-              });
-              return author;
-            });
-            return post;
-          });
+          return _.map(posts, cleanRelated);
         });
               
     }

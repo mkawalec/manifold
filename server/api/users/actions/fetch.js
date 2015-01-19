@@ -2,6 +2,7 @@
 var User = require('../model');
 var _ = require('lodash');
 var Joi = require('joi');
+var utils = require('../../utils');
 
 function handler(request, reply) {
   User.Model
@@ -22,7 +23,7 @@ module.exports = {
   handler: handler,
   validate: {
     params: Joi.object({
-      userId: Joi.string().regex(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
+      userId: utils.JoiUUID
     })
   }
 }
