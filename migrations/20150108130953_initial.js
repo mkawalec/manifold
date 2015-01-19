@@ -30,9 +30,9 @@ exports.up = function(knex, Promise) {
         });
       }).then(function() {
         return knex.schema.createTable('users_posts', function(t) {
-          t.uuid('users_id').notNull().references('id').inTable('users');
-          t.uuid('posts_id').notNull().references('id').inTable('posts');
-          t.primary([ 'users_id', 'posts_id' ]);
+          t.uuid('user_id').notNull().references('id').inTable('users');
+          t.uuid('post_id').notNull().references('id').inTable('posts');
+          t.primary([ 'user_id', 'post_id' ]);
         });
       }).then(res);
   });
