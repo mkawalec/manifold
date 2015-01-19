@@ -8,6 +8,27 @@ var reactify   = require('reactify');
 var spawn      = require('child_process').spawn;
 var install    = require('gulp-install');
 var rename     = require('gulp-rename');
+var shell      = require('gulp-shell');
+var portscanner = require('portscanner');
+var config = require('./server/config').get('/knex/options');
+
+function checkDbStatus(cb) {
+  portscanner.checkPortStatus(
+    config.connection.port,
+    config.connection.host,
+    function portCheckResults(error, status) {
+      if (error || status !== 'open') {
+        setTimeout(checkDbStatus.bind(null, cb), 250);
+      } else {
+        cb();
+      }
+    }
+  );
+}
+
+gulp.task('db.up', function(cb) {
+  checkDbStatus(cb);
+});
 
 gulp.task('install', function() {
   return gulp.src([ './package.json' ])
@@ -64,7 +85,11 @@ function spawnServer(cb) {
 
 gulp.task('server', [ 'build' ], spawnServer);
 
-gulp.task('watch', [ 'install', 'server' ], function() {
+gulp.task('migrate', [ 'install', 'db.up' ], shell.task([
+  'node server/migrate'
+]));
+
+gulp.task('watch', [ 'install', 'migrate', 'server' ], function() {
   gulp.watch([ 'server/**/*.js', 'client/**/*.js', 'client/**/*.jsx' ], [ 'server' ]);
 });
 
