@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp       = require('gulp');
 var browserify = require('browserify');
 var source     = require('vinyl-source-stream');
@@ -11,6 +13,10 @@ var rename     = require('gulp-rename');
 var shell      = require('gulp-shell');
 var portscanner = require('portscanner');
 var config = require('./server/config').get('/knex/options');
+
+var minifyCss = require('gulp-minify-css');
+var sass = require('gulp-sass');
+
 
 function checkDbStatus(cb) {
   portscanner.checkPortStatus(
@@ -35,7 +41,7 @@ gulp.task('install', function() {
     .pipe(install());
 });
 
-gulp.task('build', function() {
+gulp.task('build', [ 'styles' ], function() {
 
   var bundler = browserify({
     entries: [ './client' ],
@@ -56,6 +62,19 @@ gulp.task('build', function() {
   };
 
   return bundle();
+});
+
+gulp.task('styles', function() {
+  return gulp.src([
+    './client/sass/main.scss'
+  ])
+  .pipe(sass({
+    errLogToConsole: true,
+    sourceComments: 'map',
+    sourceMap: 'sass'
+  }))
+  .pipe(minifyCss({ keepSpecialComments: '*' }))
+  .pipe(gulp.dest('./build/css'));
 });
 
 var server;
@@ -90,7 +109,7 @@ gulp.task('migrate', [ 'install', 'db.up' ], shell.task([
 ]));
 
 gulp.task('watch', [ 'install', 'migrate', 'server' ], function() {
-  gulp.watch([ 'server/**/*.js', 'client/**/*.js', 'client/**/*.jsx' ], [ 'server' ]);
+  gulp.watch([ 'server/**/*.js', 'client/**/*.js', 'client/**/*.jsx', 'client/**/*.scss'], [ 'server' ]);
 });
 
 gulp.task('default', [ 'watch' ]);

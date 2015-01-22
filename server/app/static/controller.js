@@ -10,4 +10,14 @@ module.exports = function(hapi) {
       }
     }
   });
+
+  hapi.route({
+    method: 'GET',
+    path: '/css/{path*}',
+    handler: {
+      directory : {
+        path : 'build/css/'
+      }
+    }
+  });
 };
