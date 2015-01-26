@@ -19,7 +19,7 @@ module.exports = {
   validate: {
     payload: Joi.object({
       username: Joi.string().alphanum().min(3).required(),
-      password: Joi.string().regex(/\S{8,}/).required(),
+      password: Joi.string().min(6).regex(/\S{6,}/).required(),
       email: Joi.string().email().trim()
     })
   }

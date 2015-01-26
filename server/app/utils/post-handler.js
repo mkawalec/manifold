@@ -5,6 +5,7 @@ module.exports = function(hapi) {
     var headers = request.response.headers;
 
     if (request.response.variety === 'plain' && 
+        request.response.source != null &&
         typeof request.response.source === 'object') {
       var response = {
         payload: request.response.source,

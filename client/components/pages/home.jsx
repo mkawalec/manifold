@@ -23,7 +23,6 @@ module.exports = React.createClass({
       
 
   render: function renderHomePage() {
-    console.log(this.getStore('posts').state);
     return (
       <div>
         Hi, this is a home page

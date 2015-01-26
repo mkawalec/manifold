@@ -19,10 +19,10 @@ function login(request, reply) {
       return reply.redirect('/');
     })
     .catch(User.Model.NotFoundError, function() {
-      reply('Incorrect username').code(404);
+      reply({ status: 'Incorrect username' }).code(404);
     })
     .catch(function(e) {
-      reply('Username and password don\'t match').code(401);
+      reply({ status: 'Username and password don\'t match' }).code(401);
     });
 }
 

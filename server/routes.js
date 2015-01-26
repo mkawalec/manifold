@@ -13,5 +13,11 @@ module.exports = function(hapi) {
     config: require('./app/session/logout')
   });
 
+  hapi.route({
+    method: 'GET',
+    path: '/session',
+    config: require('./app/session/getSession')
+  });
+
   require('./api/controller')(hapi);
 };
