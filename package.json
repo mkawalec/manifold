@@ -26,6 +26,7 @@
     "mustache": "^2.0.0",
     "pg": "^4.1.1",
     "portscanner": "^1.0.0",
+    "ramda": "^0.13.0",
     "react": "^0.12.2",
     "react-bootstrap": "^0.13.2",
     "reactify": "^0.17.1",

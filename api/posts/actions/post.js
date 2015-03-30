@@ -1,36 +1,14 @@
-'use strict';
-var Joi = require('joi');
-var Post = require('../model');
-var User = require('../../users/model');
-var Promise = require('bluebird');
+import Post from '../model';
 
+export default function handler(request, reply) {
+  let {post, published} = request.payload;
+  published = published || false;
 
-function handler(request, reply) {
+  const authorId = request.auth.credentials.id;
 
-  var post = Post.Model.forge({
-    post: request.payload.post,
-    published: request.payload.published || false
-  })
-  .save()
-  .then(function(post) {
-    return post.authors().attach([ request.auth.credentials.id ])
-      .then(function() {
-        return post;
-      });
-  }).then(function(post) {
-    reply(post).code(200);
-  }).catch(function(e) {
-    reply(e.message).code(409);
-  });
+  Post.Model
+    .forge({ post, published })
+    .save()
+    .then(post => post.authors().attach([ authorId ]))
+    .then(reply);
 }
-
-module.exports = {
-  handler: handler,
-  validate: {
-    payload: Joi.object({
-      post: Joi.string().required(),
-      published: Joi.boolean()
-    })
-  },
-  auth: 'session'
-};

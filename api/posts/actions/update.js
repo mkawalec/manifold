@@ -1,52 +1,30 @@
-'use strict';
+import Post from '../model';
+import R from 'ramda';
 
-var Joi = require('joi');
-var utils = require('../../utils');
-var Post = require('../model');
-var _ = require('lodash');
+const cleanBookshelf = R.compose(JSON.parse, JSON.stringify);
 
+export default function handler(request, reply) {
+  const userId = request.auth.credentials.id;
 
-function handler(request, reply) {
-  Post.Model.forge({ id: request.params.postId })
-  .fetch({ 
-    require: true,
-    withRelated: [
-      'authors'
-    ]
-  })
-  .then(function(post) {
-    // If the user is not yet on the authors list, add her
-    var isAuthor = _.some(post.related('authors').models, function(author) {
-      return author.get('id') === request.auth.credentials.id;
-    });
+  Post.Model
+    .forge({ id: request.params.postId })
+    .fetch({ 
+      require: true,
+      withRelated: [
+        'authors'
+      ]
+    })
+    .then(post => {
+      const isAuthor = R.any(author => author.get('id') === userId)
+        (post.related('authors').models);
+      
+      if (!isAuthor) {
+        post.authors().attach([ userId ]);
+      }
 
-    if (!isAuthor) {
-      post.authors().attach([ request.auth.credentials.id ]);
-    }
-
-    post.set(request.payload);
-    return post.save();
-  })
-  .then(function(post) {
-    post = JSON.parse(JSON.stringify(post));
-    post = Post.cleanRelated(post);
-    return reply(post).code(200);
-  })
-  .catch(function(e) {
-    reply('Not found').code(404);
-  });
+      return post.set(request.payload).save();
+    })
+    .then(cleanBookshelf)
+    .then(Post.cleanRelated)
+    .then(reply);
 }
-
-module.exports = {
-  handler: handler,
-  validate: {
-    params: Joi.object({
-      postId: utils.JoiUUID
-    }),
-    payload: Joi.object({
-      post: Joi.string(),
-      published: Joi.boolean()
-    }).unknown(false)
-  },
-  auth: 'session'
-};

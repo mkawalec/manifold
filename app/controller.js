@@ -13,13 +13,9 @@ const indexTemplate = fs.readFileSync(__dirname + '/../manifold/index.html').toS
 Mustache.parse(indexTemplate);
 
 function appHandler(request, reply) {
-  fluxApp.render(request).then(function handler(html) {
-
-    reply(Mustache.render(indexTemplate, {
-      page         : html,
-      clientConfig : JSON.stringify(clientConfig || {})
-    })).code(200);
-
+  fluxApp.render(request).then(function handler(page) {
+    const rendered = Mustache.render(indexTemplate, { page })
+    reply(rendered).code(200);
   }).catch(function(err) {
     if (err === 404) {
       return reply('Not found').code(404);

@@ -1,25 +1,21 @@
-'use strict';
+import Bookshelf from 'bookshelf';
+import Users from 'api/users/model';
+import R from 'ramda';
 
-var Bookshelf = require('bookshelf');
-var Users = require('../users/model');
-var _ = require('lodash');
-
-
-var TO_CLEAN = [
+const TO_CLEAN = [
   'password', 'salt', '_pivot_post_id', '_pivot_user_id' 
 ];
 
 function cleanRelated(post) {
-  post.authors = _.map(post.authors, function(author) {
-    _.forEach(TO_CLEAN, function(property) {
-      delete author[property];
-    });
+  post.authors = R.map(author => {
+    R.forEach(property => delete author[property], TO_CLEAN);
     return author;
-  });
+  }, post.authors);
+
   return post;
 }
 
-var Post = Bookshelf.PG.Model.extend(
+const Post = Bookshelf.PG.Model.extend(
   {
     tableName: 'posts',
     authors: function authors() {
@@ -27,42 +23,34 @@ var Post = Bookshelf.PG.Model.extend(
     }
   },
   {
-    getPost: function(id) {
-      return Post.forge({ id: id })
+    getPost: (id) => {
+      return Post
+        .forge({ id })
         .fetch({
           require: true,
           withRelated: [
             'authors'
           ]
         })
-        .then(function(post) {
-          post = JSON.parse(JSON.stringify(post));
-          return cleanRelated(post);
-        });
+        .then(post => JSON.parse(JSON.stringify(post)))
+        .then(cleanRelated);
     }
   }
 );
 
-var Posts = Bookshelf.PG.Collection.extend(
+const Posts = Bookshelf.PG.Collection.extend(
   {
     model: Post
   },
   {
     getPosts: function getPosts() {
-      return Posts.forge()
+      return Posts
+        .forge()
         .fetch({
-          withRelated: [
-            'authors'
-          ]
+          withRelated: [ 'authors' ]
         })
-        .then(function(posts) {
-          posts = JSON.parse(JSON.stringify(posts));
-
-          // We don't want certain columns, and there doesn't seem to be
-          // a cleaner way of doing that in bookshelf
-          return _.map(posts, cleanRelated);
-        });
-              
+        .then(post => JSON.parse(JSON.stringify(post)))
+        .then(R.map(cleanRelated));
     }
   }
 );
