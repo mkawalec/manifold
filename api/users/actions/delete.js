@@ -12,19 +12,13 @@ function handler(request, reply) {
       .code(401);
   }
 
-  User.Model
+  return User.Model
     .forge()
     .fetch({ id: request.params.userId })
-    .then(function(user) {
-      return user.destroy();
-    })
-    .then(function() {
+    .then(user => user.destroy())
+    .then(() => {
       request.auth.session.clear();
       return reply('Deleted successfully').code(200);
-    })
-    .catch(User.Model.NotFoundError, function() {
-      reply('The user with id ' + request.params.userId + 
-            ' is not found').code(404);
     });
 }
 

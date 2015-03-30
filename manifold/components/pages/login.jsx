@@ -5,7 +5,7 @@ var fluxApp = require('fluxapp');
 var Promise = require('bluebird');
 var _ = require('lodash');
 var utils = require('../../utils');
-var router = require('fluxapp-router');
+var router = fluxApp.getRouter();
 
 var Bootstrap = require('react-bootstrap');
 var Col = Bootstrap.Col;

@@ -9,7 +9,7 @@ npm-debug.log
 node_modules/
 
 # Build dir
-build/
+dist/
 
 # Cache
 .haste_cache/

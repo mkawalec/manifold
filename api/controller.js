@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(hapi) {
+export default (hapi) => {
   require('./users/controller')(hapi);
   require('./posts/controller')(hapi);
 };

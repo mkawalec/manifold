@@ -7,7 +7,7 @@ var postgresConnection = {
   password: postgres.auth.split(':')[1],
   host: postgres.hostname,
   database: postgres.pathname.slice(1),
-  port: postgres.port || 5432,
+  port: postgres.port || 5455,
   ssl: false
 };
 

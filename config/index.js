@@ -8,7 +8,7 @@ var store = new Confidence.Store({
   name : 'Manifold (Server)',
   server : {
     host : process.env.HOST || '0.0.0.0',
-    port : process.env.PORT || 55555,
+    port : process.env.PORT || 6000,
     env  : env
   },
   knex   : require('./knex'),

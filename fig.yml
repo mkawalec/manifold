@@ -1,16 +1,3 @@
-web:
-  build: .
-  command: gulp
-  volumes:
-    - .:/code
-  working_dir: /code
-  ports:
-    - "55555:55555"
-  links:
-    - postgres
-  environment:
-    POSTGRES_URL: postgres://manifold:manifold@postgres/manifold
- 
 pgdata:
   image: busybox:latest
   volumes:
