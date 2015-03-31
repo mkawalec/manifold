@@ -1,15 +1,13 @@
-'use strict';
-
-module.exports = [
+export default [
   {
     path: '/',
     method: 'GET',
-    handler: require('./components/pages/home')
+    handler: require('manifold/pages/home')
   },
   {
     path: '/login',
     method: 'GET',
-    handler: require('./components/pages/login')
+    handler: require('manifold/pages/login')
   }
 ];
 

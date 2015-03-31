@@ -1,3 +1,2 @@
 require('./posts');
-require('./account');
-
+require('./session');

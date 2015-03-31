@@ -4,7 +4,7 @@ import {Buffer} from 'buffer/';
 
 export default fluxApp.createStore('session', {
   actions: {
-    onLogin: [ 'account.login', 'account.login:failed' ]
+    onLogin: 'session.login',
   },
 
   decodeSession() {
@@ -13,9 +13,7 @@ export default fluxApp.createStore('session', {
 
     if (hasSession) {
       const session = hasSession.split('=')[1];
-
       const decoded = (new Buffer(session, 'base64')).toString('binary');
-      fluxApp.getActions('account').getSession();
 
       return JSON.parse(decoded);
     } else {
@@ -30,6 +28,7 @@ export default fluxApp.createStore('session', {
   },
 
   onLogin(data) {
+    console.log('onlogin data', data);
     if (data && data.isBoom) {
       this.setState({});
     } else {
