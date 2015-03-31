@@ -1,10 +1,8 @@
-'use strict';
+import Confidence from 'confidence';
 
-var Confidence = require('confidence');
+const env  = process.env.NODE_ENV || 'development';
 
-var env  = process.env.NODE_ENV || 'development';
-
-var store = new Confidence.Store({
+const store = new Confidence.Store({
   name : 'Manifold (Server)',
   server : {
     host : process.env.HOST || '0.0.0.0',
@@ -15,10 +13,7 @@ var store = new Confidence.Store({
   session : require('./session')
 });
 
-exports.get = function(key) {
-  return store.get(key, { env : env });
-};
-
-exports.meta = function(key) {
-  return store.meta(key, { env : env });
+export default {
+  get: (key) => store.get(key, { env : env }),
+  meta: (key) => store.meta(key, { env : env })
 };

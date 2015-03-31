@@ -1,28 +1,27 @@
-'use strict';
-var url = require('url');
+import url from 'url';
 
-var postgres = url.parse(process.env.POSTGRES_URL);
-var postgresConnection = {
-  user: postgres.auth.split(':')[0],
-  password: postgres.auth.split(':')[1],
-  host: postgres.hostname,
-  database: postgres.pathname.slice(1),
-  port: postgres.port || 5455,
+const conn = url.parse(process.env.POSTGRES_URL);
+const dbConnection = {
+  user: conn.auth.split(':')[0],
+  password: conn.auth.split(':')[1],
+  host: conn.hostname,
+  database: conn.pathname.slice(1),
+  port: conn.port || 5455,
   ssl: false
 };
 
-module.exports = {
+export default {
   options : {
     $filter: 'env',
     development: {
       debug: true,
       client: 'pg',
-      connection: postgresConnection
+      connection: dbConnection
     },
     production: {
       debug: false,
       client: 'pg',
-      connection: postgresConnection
+      connection: dbConnection
     }
   }
-};
+}
