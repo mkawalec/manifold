@@ -1,7 +1,6 @@
 'use strict';
 var Joi = require('joi');
 
-var createAction = require('../../api/users/actions/post');
 var User = require('../../api/users/model');
 
 function login(request, reply) {
@@ -29,7 +28,9 @@ function login(request, reply) {
 module.exports = {
   handler: login,
   validate: {
-    payload: createAction.validate.payload.keys({
+    payload: Joi.object({
+      username: Joi.string().alphanum().min(3),
+      password: Joi.string().min(6).regex(/\S{6,}/),
       email: Joi.any().forbidden()
     }).unknown(false)
   },

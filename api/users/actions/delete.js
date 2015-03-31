@@ -1,15 +1,9 @@
-'use strict';
-var User = require('../model');
-var _ = require('lodash');
-var Joi = require('joi');
+import User from '../model';
+import Boom from 'boom';
 
-var createAction = require('./post');
-var utils = require('../../utils');
-
-function handler(request, reply) {
+export default function handler(request, reply) {
   if (request.auth.credentials.id !== request.params.userId) {
-    return reply('You cannot delete others. LOL. Santa dislikes you.')
-      .code(401);
+    throw Boom.unauthorized('You cannot delete others. LOL. Santa dislikes you.');
   }
 
   return User.Model
@@ -20,14 +14,4 @@ function handler(request, reply) {
       request.auth.session.clear();
       return reply('Deleted successfully').code(200);
     });
-}
-
-module.exports = {
-  handler: handler,
-  validate: {
-    params: Joi.object({
-      userId: utils.JoiUUID
-    })
-  },
-  auth: 'session'
 }

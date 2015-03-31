@@ -13,16 +13,16 @@ function cleanRelated(post) {
   return post;
 }
 
-const Post = Bookshelf.PG.Model.extend(
+const Model = Bookshelf.PG.Model.extend(
   {
     tableName: 'posts',
-    authors: function authors() {
+    authors() {
       return this.belongsToMany(Users.Model, 'users_posts');
     }
   },
   {
-    getPost: (id) => {
-      return Post
+    getPost(id) {
+      return Model
         .forge({ id })
         .fetch({
           require: true,
@@ -36,13 +36,13 @@ const Post = Bookshelf.PG.Model.extend(
   }
 );
 
-const Posts = Bookshelf.PG.Collection.extend(
+const Collection = Bookshelf.PG.Collection.extend(
   {
-    model: Post
+    model: Model
   },
   {
-    getPosts: function getPosts() {
-      return Posts
+    getPosts() {
+      return Collection
         .forge()
         .fetch({
           withRelated: [ 'authors' ]
@@ -54,8 +54,7 @@ const Posts = Bookshelf.PG.Collection.extend(
 );
 
 module.exports = {
-  Model: Post,
-  Collection: Posts,
-
-  cleanRelated: cleanRelated
+  Model,
+  Collection,
+  cleanRelated
 };
