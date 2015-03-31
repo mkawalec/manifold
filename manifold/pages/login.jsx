@@ -1,10 +1,10 @@
 import React from 'react';
 import fluxApp from 'fluxapp';
 import R from 'ramda';
-import uuid from 'uuid';
 
-import {Col, form, Input, Button, Alert} from 'react-bootstrap';
+import {Col, form, Input, Button} from 'react-bootstrap';
 import Layout from 'manifold/components/layout';
+import Errors from 'manifold/components/errors';
 
 const router = fluxApp.getRouter();
 
@@ -29,17 +29,14 @@ export default React.createClass({
     if (error.message === 'Unauthorized') {
       console.log('adding error');
       errors.push({
-        id: uuid.v4(),
         msg: 'Your password is incorrect'
       });
     } else if (error.message === 'Not Found') {
       errors.push({
-        id: uuid.v4(),
         msg: 'The username is not found'
       });
     } else if (error.message === 'Bad Request') {
       errors.push({
-        id: uuid.v4(),
         msg: 'Username or password contains illegal characters or is too short'
       });
     }
@@ -76,27 +73,16 @@ export default React.createClass({
   },
 
   dismissError: function dismissError(errorId) {
-    return function() {
-      const errors = R.reject(error => error.id === errorId, this.state.errors);
-      this.setState({ errors });
-    }.bind(this);
+    const errors = R.reject(error => error.id === errorId, this.state.errors);
+    this.setState({ errors });
   },
 
   render: function renderHomePage() {
-    const validationErrors = R.map(message => {
-      console.log('showing errors', message);
-      return (
-        <Alert bsStyle='danger' onDismiss={this.dismissError(errorMessage.id)}>
-          <p>{message.msg}</p>
-        </Alert>
-      );
-    }, this.state.errors);
-
+    console.log('rerendering');
     return (
       <Layout>
         <Col xs={4} xsOffset={4}>
-          
-          {validationErrors}
+          <Errors errors={this.state.errors} onDismiss={this.dismissError} />
 
           <form className='form-horizontal' onSubmit={this.onLogin} >
             <Input  type="text" 
