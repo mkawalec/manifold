@@ -26,5 +26,5 @@ export default function handler(request, reply) {
     })
     .then(cleanBookshelf)
     .then(Post.cleanRelated)
-    .then(reply);
+    .nodeify(reply);
 }

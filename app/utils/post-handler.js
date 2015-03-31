@@ -1,13 +1,12 @@
-'use strict';
-
-module.exports = function(hapi) {
+export default (hapi) => {
   hapi.ext('onPostHandler', function postHandler(request, reply) {
-    var headers = request.response.headers;
+    const {headers} = request.response;
 
     if (request.response.variety === 'plain' && 
         request.response.source != null &&
         typeof request.response.source === 'object') {
-      var response = {
+
+      const response = {
         payload: request.response.source,
         statusCode: request.response.statusCode
       };

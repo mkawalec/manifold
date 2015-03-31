@@ -2,9 +2,7 @@ import Bookshelf from 'bookshelf';
 import Users from 'api/users/model';
 import R from 'ramda';
 
-const TO_CLEAN = [
-  'password', 'salt', '_pivot_post_id', '_pivot_user_id' 
-];
+const TO_CLEAN = [ 'password', 'salt', '_pivot_post_id', '_pivot_user_id' ];
 
 function cleanRelated(post) {
   post.authors = R.map(author => {

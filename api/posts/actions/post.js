@@ -10,5 +10,5 @@ export default function handler(request, reply) {
     .forge({ post, published })
     .save()
     .then(post => post.authors().attach([ authorId ]))
-    .then(reply);
+    .nodeify(reply);
 }

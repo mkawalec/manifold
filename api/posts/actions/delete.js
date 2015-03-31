@@ -5,5 +5,5 @@ export default function handler(request, reply) {
     .forge({ id: request.params.postId })
     .fetch({ require: true })
     .then(post => post.destroy())
-    .then(() => reply('deleted').code(200));
+    .nodeify(reply);
 }
