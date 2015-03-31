@@ -1,10 +1,8 @@
-'use strict';
+import fluxApp from 'fluxapp';
+import api from 'iso-fetch';
 
-var fluxApp = require('fluxapp');
-var api = require('iso-fetch');
-
-module.exports = fluxApp.createActions('posts', {
-  getAll: function getAll() {
-    return api.request({ url: '/api/posts/' });
+export default fluxApp.createActions('posts', {
+  getAll() {
+    return api.request({ url: '/api/posts' });
   }
 });

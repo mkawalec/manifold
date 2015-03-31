@@ -1,4 +1,2 @@
-'use strict';
-
 require('./posts');
-require('./login');
+require('./session');

@@ -1,13 +1,18 @@
-'use strict';
+import fluxApp from 'fluxapp';
 
-var fluxApp = require('fluxapp');
-
-module.exports = fluxApp.createStore('posts', {
+export default fluxApp.createStore('posts', {
   actions: {
     onGetAll: 'posts.getAll'
   },
 
-  onGetAll: function onGetAll(data) {
-    this.setState(data);
+  getIntialState() {
+    return {
+      all: [],
+      individual: {}
+    };
+  },      
+
+  onGetAll(data) {
+    this.setState({ all: data });
   }
 });

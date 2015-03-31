@@ -1,21 +1,12 @@
-'use strict';
+import fluxApp from 'fluxapp';
+import api from 'iso-fetch';
 
-var fluxApp = require('fluxapp');
-var api = require('iso-fetch');
-
-module.exports = fluxApp.createActions('account', {
-  login: function login(payload) {
+export default fluxApp.createActions('account', {
+  login(payload) {
     return api.request({ 
       url: '/login', 
       method: 'POST',
       payload: payload
     });
   },
-
-  getSession: function getSession() {
-    return api.request({
-      url: '/session',
-      method: 'GET'
-    });
-  }
 });
