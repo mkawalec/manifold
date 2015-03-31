@@ -8,6 +8,13 @@ import Errors from 'manifold/components/errors';
 
 const router = fluxApp.getRouter();
 
+function makeError(msg) {
+  return {
+    id: uuid.v4(),
+    msg: msg
+  };
+}
+
 export default React.createClass({
   mixins: [ fluxApp.mixins.component ],
   
@@ -27,20 +34,15 @@ export default React.createClass({
 
     console.log('got error', error);
     if (error.message === 'Unauthorized') {
-      console.log('adding error');
-      errors.push({
-        msg: 'Your password is incorrect'
-      });
+      errors.push(makeError('Your password is incorrect'))
     } else if (error.message === 'Not Found') {
-      errors.push({
-        msg: 'The username is not found'
-      });
+      errors.push(makeError('The username is not found'));
     } else if (error.message === 'Bad Request') {
-      errors.push({
-        msg: 'Username or password contains illegal characters or is too short'
-      });
+      errors.push(makeError(
+        'Username or password contains illegal characters or is too short'));
     }
 
+    console.log('pushing errors', errors);
     this.setState({ errors });
   },
 
@@ -73,12 +75,14 @@ export default React.createClass({
   },
 
   dismissError: function dismissError(errorId) {
-    const errors = R.reject(error => error.id === errorId, this.state.errors);
+    const errors = R.reject(error => error.get('id') === errorId,
+      this.state.errors);
+
     this.setState({ errors });
   },
 
   render: function renderHomePage() {
-    console.log('rerendering');
+    console.log('rerendering', this.state.errors);
     return (
       <Layout>
         <Col xs={4} xsOffset={4}>
