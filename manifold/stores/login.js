@@ -1,42 +1,44 @@
-'use strict';
+import fluxApp from 'fluxapp';
+import R from 'ramda';
+import {Buffer} from 'buffer/';
 
-var fluxApp = require('fluxapp');
-var _ = require('lodash');
-
-module.exports = fluxApp.createStore('login', {
+export default fluxApp.createStore('login', {
   actions: {
-    onLoginSuccess: [ 'account.login', 'account.login:failed' ],
+    onLogin: [ 'account.login', 'account.login:failed' ],
     onSessionDetails: [ 'account.getSession' ]
   },
 
-  getInitialState: function getInitialState() {
-    if (typeof document !== 'undefined') {
-      var hasSession = _.findWhere(document.cookie.split(';'), function(cookie) {
-        return cookie.split('=')[0] === 'session';
-      });
+  decodeSession() {
+    const hasSession = R.find(cookie => R.trim(cookie.split('=')[0]) === 'session',
+      document.cookie.split(';'));
 
-      if (hasSession) {
-        fluxApp.getActions('account').getSession();
-        return { loggedIn: true };
-      } else {
-        return { loggedIn: false };
-      }
+    if (hasSession) {
+      const session = hasSession.split('=')[1];
+
+      const decoded = (new Buffer(session, 'base64')).toString('binary');
+      fluxApp.getActions('account').getSession();
+
+      return JSON.parse(decoded);
+    } else {
+      return {};
     }
   },
 
-  onSessionDetails: function onSessionDetails(data) {
+  getInitialState() {
+    if (typeof document !== 'undefined') {
+      return this.decodeSession();
+    }
+  },
+
+  onSessionDetails(data) {
     this.setState({ session: data });
   },
 
-  onLoginSuccess: function onLoginSuccess(data) {
+  onLogin(data) {
     if (data && data.isBoom) {
-      var msg      = JSON.parse(data.message);
-      var errorMsg = msg.payload ? msg.payload.status : msg.message;
-
-      this.setState({ fail: errorMsg, success: false });
+      this.setState({});
     } else {
-      this.setState({ success: true, fail: false });
-      fluxApp.getActions('account').getSession();
+      this.setState(this.decodeSession());
     }
   }
-});
+})
