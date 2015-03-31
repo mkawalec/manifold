@@ -10,18 +10,16 @@ export default React.createClass({
   },
 
   render() {
-    console.log('inside render');
     const errors = R.map(error => {
-      const dimiss = R.partial(this.props.onDismiss, error.get('id'));
+      const dismiss = R.partial(this.props.onDismiss, error.id);
 
       return (
         <Alert bsStyle='danger' onDismiss={dismiss}>
-          <p>{error.get('msg')}</p>
+          <p>{error.msg}</p>
         </Alert>
       );
     }, this.props.errors);
 
-    console.log('errors', errors);
     return (
       <Row>
         {errors}

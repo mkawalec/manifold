@@ -1,6 +1,7 @@
 import React from 'react';
 import fluxApp from 'fluxapp';
 import R from 'ramda';
+import uuid from 'uuid';
 
 import {Col, form, Input, Button} from 'react-bootstrap';
 import Layout from 'manifold/components/layout';
@@ -32,7 +33,6 @@ export default React.createClass({
   onLoginFail(fail, error) {
     let {errors} = this.state;
 
-    console.log('got error', error);
     if (error.message === 'Unauthorized') {
       errors.push(makeError('Your password is incorrect'))
     } else if (error.message === 'Not Found') {
@@ -42,7 +42,6 @@ export default React.createClass({
         'Username or password contains illegal characters or is too short'));
     }
 
-    console.log('pushing errors', errors);
     this.setState({ errors });
   },
 
@@ -75,14 +74,11 @@ export default React.createClass({
   },
 
   dismissError: function dismissError(errorId) {
-    const errors = R.reject(error => error.get('id') === errorId,
-      this.state.errors);
-
+    const errors = R.reject(error => error.id === errorId, this.state.errors);
     this.setState({ errors });
   },
 
   render: function renderHomePage() {
-    console.log('rerendering', this.state.errors);
     return (
       <Layout>
         <Col xs={4} xsOffset={4}>
