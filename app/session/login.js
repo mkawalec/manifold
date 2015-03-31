@@ -16,5 +16,5 @@ export default function login(request, reply) {
       });
 
       return reply.redirect('/');
-    }).nodeify(reply);
+    });
 }
