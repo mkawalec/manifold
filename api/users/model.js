@@ -38,7 +38,7 @@ const Model = Bookshelf.PG.Model.extend({
       .then(function(user) {
         if (!this.comparePassword(user, password)) {
           throw Boom.unauthorized('The password is incorrect');
-        };
+        }
         return user;
       });
   },
@@ -46,7 +46,7 @@ const Model = Bookshelf.PG.Model.extend({
   createUser(props) {
     const salt = crypto.randomBytes(128).toString('base64');
     let hash = crypto.createHash('sha512');
-    hash.update(salt + password);
+    hash.update(salt + props.password);
 
     props = R.merge(props, {
       salt,
@@ -58,9 +58,9 @@ const Model = Bookshelf.PG.Model.extend({
 
   setPassword : function setPassword(password) {
     var hash = crypto.createHash('sha512');
-    hash.update(user.get('salt') + password);
+    hash.update(this.get('salt') + password);
 
-    this.set({ password: hash.digest('base64') })
+    this.set({ password: hash.digest('base64') });
   }
 });
 

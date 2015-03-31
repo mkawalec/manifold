@@ -36,7 +36,6 @@
     "consistent-return": [ 2 ], // @todo remove (should be error)
     "default-case": [ 2 ],
     "guard-for-in": [ 2 ],
-    "no-else-return": [ 2 ],
     "no-eq-null": [ 2 ],
     "no-fallthrough": [ 2 ],
     "no-floating-decimal": [ 2 ],

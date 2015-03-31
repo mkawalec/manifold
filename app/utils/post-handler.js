@@ -1,10 +1,10 @@
 export default (hapi) => {
   hapi.ext('onPostHandler', function postHandler(request, reply) {
-    const {headers} = request.response;
-
-    if (request.response.variety === 'plain' && 
+    /*eslint-disable no-eq-null */
+    if (request.response.variety === 'plain' &&
         request.response.source != null &&
         typeof request.response.source === 'object') {
+    /*eslint-enable no-eq-null */
 
       const response = {
         payload: request.response.source,

@@ -10,7 +10,7 @@ export default fluxApp.createStore('posts', {
       all: [],
       individual: {}
     };
-  },      
+  },
 
   onGetAll(data) {
     this.setState({ all: data });

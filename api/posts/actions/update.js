@@ -8,16 +8,16 @@ export default function handler(request, reply) {
 
   Post.Model
     .forge({ id: request.params.postId })
-    .fetch({ 
+    .fetch({
       require: true,
       withRelated: [
         'authors'
       ]
     })
     .then(post => {
-      const isAuthor = R.any(author => author.get('id') === userId)
-        (post.related('authors').models);
-      
+      const isAuthor = R.any(author => author.get('id') === userId,
+        post.related('authors').models);
+
       if (!isAuthor) {
         post.authors().attach([ userId ]);
       }

@@ -7,14 +7,16 @@ import bootstrap from 'manifold/bootstrap';
 import StaticController from 'app/static/controller';
 import Routes from 'app/routes';
 
-bootstrap(fluxApp);
-const indexTemplate = fs.readFileSync(__dirname + '/../manifold/index.html').toString();
+import path from 'path';
+const indexTemplate = fs.readFileSync(
+  path.join(__dirname, '/../manifold/index.html')).toString();
 
 Mustache.parse(indexTemplate);
+bootstrap(fluxApp);
 
 function appHandler(request, reply) {
   fluxApp.render(request).then(function handler(page) {
-    const rendered = Mustache.render(indexTemplate, { page })
+    const rendered = Mustache.render(indexTemplate, { page });
     reply(rendered).code(200);
   }).catch(function(err) {
     if (err === 404) {

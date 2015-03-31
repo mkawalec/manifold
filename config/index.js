@@ -1,6 +1,6 @@
 import Confidence from 'confidence';
 
-const env  = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'development';
 
 const store = new Confidence.Store({
   name : 'Manifold (Server)',

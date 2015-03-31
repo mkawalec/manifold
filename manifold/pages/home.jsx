@@ -6,7 +6,7 @@ import {Col} from 'react-bootstrap';
 
 export default React.createClass({
   mixins: [ fluxApp.mixins.component ],
-  
+
   displayName: 'home',
 
   statics: {
@@ -24,7 +24,6 @@ export default React.createClass({
 
   componentWillMount() {
     const postsStore = fluxApp.getStore('posts');
-    
     this.setState({
       posts: postsStore.state.all
     });

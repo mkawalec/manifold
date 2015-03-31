@@ -5,7 +5,7 @@ export const USER_PROPS = {
   username: Joi.string().alphanum().min(3).required(),
   password: Joi.string().min(6).regex(/\S{6,}/).required(),
   email: Joi.string().email().trim()
-}
+};
 
 export default (hapi) => {
 
@@ -46,7 +46,7 @@ export default (hapi) => {
     path: '/api/users/{userId}',
     config: {
       handler: require('./actions/update'),
-      validate: { 
+      validate: {
         params: Joi.object({
           userId: Joi.string().guid()
         }),

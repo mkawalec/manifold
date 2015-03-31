@@ -9,11 +9,7 @@ try {
     'NODE_PATH'
   ]);
 } catch(err) {
-  /*eslint-diable no-console */
-  console.error(err.message);
-  /*eslint-enable no-console */
-
-  process.exit(1);
+  throw new Error(err.message);
 }
 
 var Bookshelf = require('bookshelf');
@@ -26,7 +22,9 @@ require('app/controller')(hapi);
 
 if (! module.parent) {
   hapi.start(function() {
+    /*eslint-disable no-console */
     console.log(hapi.info);
+    /*eslint-enable no-console */
   });
 } else {
   module.exports = hapi;

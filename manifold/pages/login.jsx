@@ -18,7 +18,7 @@ function makeError(msg) {
 
 export default React.createClass({
   mixins: [ fluxApp.mixins.component ],
-  
+
   displayName: 'login',
 
   flux: {
@@ -34,7 +34,7 @@ export default React.createClass({
     let {errors} = this.state;
 
     if (error.message === 'Unauthorized') {
-      errors.push(makeError('Your password is incorrect'))
+      errors.push(makeError('Your password is incorrect'));
     } else if (error.message === 'Not Found') {
       errors.push(makeError('The username is not found'));
     } else if (error.message === 'Bad Request') {
@@ -85,21 +85,21 @@ export default React.createClass({
           <Errors errors={this.state.errors} onDismiss={this.dismissError} />
 
           <form className='form-horizontal' onSubmit={this.onLogin} >
-            <Input  type="text" 
-                    ref='username' 
-                    label="User Name" 
-                    labelClassName="col-xs-4"  
-                    wrapperClassName="col-xs-8" />
+            <Input type="text"
+                   ref='username'
+                   label="User Name"
+                   labelClassName="col-xs-4"
+                   wrapperClassName="col-xs-8" />
 
-            <Input  type="password" 
-                    ref='password' 
-                    label="Password" 
-                    labelClassName="col-xs-4" 
-                    wrapperClassName="col-xs-8" />
+            <Input type="password"
+                   ref='password'
+                   label="Password"
+                   labelClassName="col-xs-4"
+                   wrapperClassName="col-xs-8" />
 
-            <Input  type='submit'
-                    value='Login!'
-                    />
+            <Input type='submit'
+                   value='Login!'
+                   />
 
            </form>
         </Col>

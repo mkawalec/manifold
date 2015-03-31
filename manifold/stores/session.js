@@ -1,3 +1,4 @@
+/*eslint-disable no-undef */
 import fluxApp from 'fluxapp';
 import R from 'ramda';
 import {Buffer} from 'buffer/';
@@ -9,7 +10,7 @@ export default fluxApp.createStore('session', {
 
   decodeSession() {
     const hasSession = R.find(cookie => R.trim(cookie.split('=')[0]) === 'session',
-      document.cookie.split(';'));
+                              document.cookie.split(';'));
 
     if (hasSession) {
       const session = hasSession.split('=')[1];
