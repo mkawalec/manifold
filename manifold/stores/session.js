@@ -2,10 +2,9 @@ import fluxApp from 'fluxapp';
 import R from 'ramda';
 import {Buffer} from 'buffer/';
 
-export default fluxApp.createStore('login', {
+export default fluxApp.createStore('session', {
   actions: {
-    onLogin: [ 'account.login', 'account.login:failed' ],
-    onSessionDetails: [ 'account.getSession' ]
+    onLogin: [ 'account.login', 'account.login:failed' ]
   },
 
   decodeSession() {
@@ -28,10 +27,6 @@ export default fluxApp.createStore('login', {
     if (typeof document !== 'undefined') {
       return this.decodeSession();
     }
-  },
-
-  onSessionDetails(data) {
-    this.setState({ session: data });
   },
 
   onLogin(data) {
