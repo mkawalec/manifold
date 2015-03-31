@@ -1,4 +1,7 @@
+import UsersController from 'api/users/controller';
+import PostsController from 'api/posts/controller';
+
 export default (hapi) => {
-  require('./users/controller')(hapi);
-  require('./posts/controller')(hapi);
+  UsersController(hapi);
+  PostsController(hapi);
 };
