@@ -28,7 +28,7 @@ module.exports = {
       {
         test : /\.jsx|js$/,
         exclude : /node_modules/,
-        loaders : [ 'jsx-loader', 'babel-loader' ]
+        loaders : [ 'jsx-loader', 'babel-loader', 'flowcheck' ]
       },
       {
         test : /\.json$/,

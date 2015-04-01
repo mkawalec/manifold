@@ -16,6 +16,8 @@
     "confidence": "^1.0.0",
     "eslint": "^0.18.0",
     "eslint-plugin-react": "^2.0.2",
+    "flowcheck": "^0.2.3",
+    "flowcheck-loader": "^1.0.0",
     "fluxapp": "mkawalec/fluxApp",
     "hapi": "^8.4.0",
     "hapi-auth-signed-cookie": "^1.0.0",

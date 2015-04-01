@@ -16,8 +16,13 @@ function decodeSession() {
   }
 };
 
+type LoginDetails = {
+  username: string;
+  password: string
+};
+
 export default fluxApp.createActions('session', {
-  login(payload) {
+  login(payload: LoginDetails) {
     return api.request({
       url: '/login',
       method: 'POST',
