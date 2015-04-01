@@ -20,7 +20,6 @@ function makeError(msg) {
 const isSessionActive = (fluxapp) => {
   return fluxapp.getActions('session').get().then(() => {
     const session = fluxapp.getStore('session').state;
-    console.log('session', session);
     if (session && session.username) {
       const router = fluxapp.getRouter ? fluxapp.getRouter() : fluxApp.getRouter();
       return router.go('/');

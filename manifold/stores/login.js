@@ -17,4 +17,4 @@ export default fluxApp.createStore('login', {
       loggedIn: false
     };
   },
-})
+});

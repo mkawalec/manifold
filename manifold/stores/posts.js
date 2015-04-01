@@ -7,12 +7,11 @@ export default fluxApp.createStore('posts', {
 
   getIntialState() {
     return {
-      all: [],
-      individual: {}
+      posts: []
     };
   },
 
-  onGetAll(data) {
-    this.setState({ all: data });
+  onGetAll(posts) {
+    this.setState({ posts });
   }
 });
