@@ -2,6 +2,7 @@ import React from 'react';
 import fluxApp from 'fluxapp';
 import R from 'ramda';
 import uuid from 'uuid';
+import Promise from 'bluebird';
 
 import {Col, form, Input, Button} from 'react-bootstrap';
 import Layout from 'manifold/components/layout';
@@ -16,6 +17,17 @@ function makeError(msg) {
   };
 }
 
+const isSessionActive = (fluxapp) => {
+  return fluxapp.getActions('session').get().then(() => {
+    const session = fluxapp.getStore('session').state;
+    console.log('session', session);
+    if (session && session.username) {
+      const router = fluxapp.getRouter ? fluxapp.getRouter() : fluxApp.getRouter();
+      return router.go('/');
+    }
+  });
+};
+
 export default React.createClass({
   mixins: [ fluxApp.mixins.component ],
 
@@ -23,11 +35,21 @@ export default React.createClass({
 
   flux: {
     stores: {
-      isSessionActive: 'session'
+      isSessionActive: 'login'
     },
     actions: {
       onLoginFail: 'session.login:failed'
     }
+  },
+
+  statics: {
+    load(route, fluxApp) {
+      return isSessionActive(fluxApp);
+    }
+  },
+
+  componentWillMount() {
+    return isSessionActive(this);
   },
 
   onLoginFail(fail, error) {
@@ -52,14 +74,7 @@ export default React.createClass({
   },
 
   isSessionActive() {
-    const session = this.getStore('session').state;
-    if (session && session.username) {
-      router.go('/');
-    }
-  },
-
-  componentWillMount() {
-    this.isSessionActive();
+    return isSessionActive(this);
   },
 
   onLogin(e) {
@@ -84,23 +99,29 @@ export default React.createClass({
         <Col xs={4} xsOffset={4}>
           <Errors errors={this.state.errors} onDismiss={this.dismissError} />
 
-          <form className='form-horizontal' onSubmit={this.onLogin} >
-            <Input type="text"
-                   ref='username'
-                   label="User Name"
-                   labelClassName="col-xs-4"
-                   wrapperClassName="col-xs-8" />
+          <form 
+            className='form-horizontal' 
+            onSubmit={this.onLogin} 
+            action='/login' 
+            method='post'
+            >
+              <Input type="text"
+                     ref='username'
+                     name='username'
+                     label="User Name"
+                     labelClassName="col-xs-4"
+                     wrapperClassName="col-xs-8" />
 
-            <Input type="password"
-                   ref='password'
-                   label="Password"
-                   labelClassName="col-xs-4"
-                   wrapperClassName="col-xs-8" />
+              <Input type="password"
+                     ref='password'
+                     label="Password"
+                     name='password'
+                     labelClassName="col-xs-4"
+                     wrapperClassName="col-xs-8" />
 
-            <Input type='submit'
-                   value='Login!'
-                   />
-
+              <Input type='submit'
+                     value='Login!'
+                     />
            </form>
         </Col>
       </Layout>
