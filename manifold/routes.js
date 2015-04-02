@@ -1,7 +1,7 @@
 import Home from 'manifold/pages/home';
 import Login from 'manifold/pages/login';
-import Dashboard from 'manifold/pages/dashboard';
-import AddPost from 'manifold/pages/add-post';
+import Dashboard from 'manifold/pages/admin/dashboard';
+import AddPost from 'manifold/pages/admin/add-post';
 
 export default [
   {

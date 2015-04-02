@@ -1,5 +1,6 @@
 import React from 'react';
-import {Col} from 'react-bootstrap';
+import {Col, Button} from 'react-bootstrap';
+import fluxApp from 'fluxapp';
 
 const STYLE = {
   wrapper: {
@@ -20,6 +21,10 @@ export default React.createClass({
     return this.props.post.post.split(/\s+/).length;
   },
 
+  edit() {
+    fluxApp.getRouter().go('/admin/add-post/' + this.props.post.id);
+  },
+
   render() {
     const {post} = this.props;
     const authors = `${ post.authors.length } authors`;
@@ -30,6 +35,9 @@ export default React.createClass({
         <Col md={12}><h4>{ post.title }</h4></Col>
         <Col md={4}>{ authors }</Col>
         <Col md={4}>{ words }</Col>
+        <Col md={4}>
+          <Button onClick={this.edit} bsStyle='primary'>Edit</Button>
+        </Col>
       </Col>
     );
   }
