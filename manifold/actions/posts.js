@@ -7,6 +7,13 @@ export default fluxApp.createActions('posts', {
 
   get: (id) => api.request({ url: '/api/posts/' + id }),
 
+  delete: (id) => {
+    return api.request({ 
+      url: '/api/posts/' + id,
+      method: 'DELETE'
+    });
+  },
+
   create(payload) {
     return api.request({
       url: '/api/posts',

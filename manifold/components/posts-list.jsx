@@ -30,8 +30,13 @@ export default React.createClass({
 
   flux: {
     stores: {
-      postsUpdated: 'posts'
+      postsUpdated: 'posts',
+      postUpdated: 'post'
     }
+  },
+
+  postUpdated() {
+    fluxApp.getActions('posts').getAll();
   },
 
   postsUpdated() {
@@ -40,7 +45,11 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    this.postsUpdated();
+    if (fluxApp.getStore('posts').state.posts.length === 0) {
+      fluxApp.getActions('posts').getAll();
+    } else {
+      this.postsUpdated();
+    }
   },
 
   selectPost(selectedPost) {

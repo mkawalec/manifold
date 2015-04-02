@@ -25,8 +25,14 @@ export default React.createClass({
     return this.props.post.post.split(/\s+/).length;
   },
 
-  edit() {
+  edit(e) {
+    e.stopPropagation();
     fluxApp.getRouter().go('/admin/add-post/' + this.props.post.id);
+  },
+
+  delete(e) {
+    e.stopPropagation();
+    fluxApp.getActions('posts').delete(this.props.post.id);
   },
 
   showPreview() {
@@ -52,7 +58,8 @@ export default React.createClass({
         <Col md={4}>{ authors }</Col>
         <Col md={4}>{ words }</Col>
         <Col md={4}>
-          <Button onClick={this.edit} bsStyle='primary'>Edit</Button>
+          <Button block onClick={this.edit} bsStyle='primary'>Edit</Button>
+          <Button block onClick={this.delete} bsStyle='danger'>Delete</Button>
         </Col>
       </Col>
     );

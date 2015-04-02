@@ -23,6 +23,7 @@ export default function register(hapi) {
       } else if (err.message.match(FOREIGN_KEY)) {
         return reply(Boom.badData(err.detail));
       }
+      console.log(request.response.stack);
     }
 
     return reply.continue();
