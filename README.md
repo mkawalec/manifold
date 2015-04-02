@@ -12,7 +12,8 @@ In another:
     npm install -g foreman mariner
     make dev
 
-And start the server (while having the result of `make dev` running):
+And in a third one start the server (while having the result of `make dev`
+running):
 
     mariner migrate up
     make server
