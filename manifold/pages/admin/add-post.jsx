@@ -76,7 +76,7 @@ export default React.createClass({
   onPostUpdated() {
     const post = fluxApp.getStore('post').state;
 
-    if (post post.post) {
+    if (post.post) {
       this.refs.post.getDOMNode().value = post.post;
       this.refs.title.getDOMNode().value = post.title;
       this.updateStore();
