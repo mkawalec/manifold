@@ -3,7 +3,7 @@ import R from 'ramda';
 
 export const USER_PROPS = {
   username: Joi.string().alphanum().min(3).required(),
-  password: Joi.string().min(6).regex(/\S{6,}/).required(),
+  password: Joi.string().min(5).regex(/\S{5,}/).required(),
   email: Joi.string().email().trim()
 };
 

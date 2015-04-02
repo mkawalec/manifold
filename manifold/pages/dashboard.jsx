@@ -51,7 +51,7 @@ export default React.createClass({
         <Col md={6} style={STYLE.column}>
           <Button 
             bsStyle='success'
-            onClick={() => fluxApp.getRouter().go('/add-post')}
+            onClick={() => fluxApp.getRouter().go('/admin/add-post')}
             style={STYLE.addBtn}
             >
               Add Post

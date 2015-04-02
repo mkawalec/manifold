@@ -15,12 +15,12 @@ export default [
     handler: Login
   },
   {
-    path: '/dashboard',
+    path: '/admin/dashboard',
     method: 'GET',
     handler: Dashboard
   },
   {
-    path: '/add-post',
+    path: '/admin/add-post/:id?',
     method: 'GET',
     handler: AddPost
   }

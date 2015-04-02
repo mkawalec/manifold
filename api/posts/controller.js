@@ -15,6 +15,7 @@ export default (hapi) => {
       validate: {
         payload: Joi.object({
           post: Joi.string().required(),
+          title: Joi.string().required(),
           published: Joi.boolean()
         })
       },
@@ -46,8 +47,9 @@ export default (hapi) => {
         }),
         payload: Joi.object({
           post: Joi.string(),
+          title: Joi.string(),
           published: Joi.boolean()
-        }).unknown()
+        }).unknown(false)
       },
       auth: 'session'
     }

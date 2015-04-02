@@ -44,6 +44,7 @@ const Collection = Bookshelf.PG.Collection.extend(
     getPosts() {
       return Collection
         .forge()
+        .query(qb => qb.orderBy('created_at', 'desc'))
         .fetch({
           withRelated: [ 'authors' ]
         })
