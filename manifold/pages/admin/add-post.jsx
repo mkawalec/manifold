@@ -66,16 +66,26 @@ export default React.createClass({
   },
 
   onFail(action, error) {
-    console.error('saving failed', error);
+    fluxApp.getActions('alerts').add({
+      message: 'Saving failed. Try again in a moment',
+      type: 'error',
+      timeout: 10000
+    });
   },
 
   onPostUpdated() {
     const post = fluxApp.getStore('post').state;
-    if (post.post) {
+
+    if (post post.post) {
       this.refs.post.getDOMNode().value = post.post;
       this.refs.title.getDOMNode().value = post.title;
       this.updateStore();
     } else {
+      fluxApp.getActions('alerts').add({
+        message: 'Document saved successfully',
+        type: 'success',
+        timeout: 1200
+      });
       fluxApp.getRouter().go('/admin/add-post/' + post.id);
     }
   },

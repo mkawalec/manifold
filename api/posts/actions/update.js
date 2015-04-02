@@ -24,6 +24,8 @@ export default function handler(request, reply) {
 
       return post.set(request.payload).save();
     })
-    .then(post => { id: post.get('id') })
+    .then(post => { 
+      return { id: post.get('id') };
+    })
     .nodeify(reply);
 }
