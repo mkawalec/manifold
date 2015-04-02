@@ -1,8 +1,12 @@
 import React from 'react';
 import fluxApp from 'fluxapp';
-import Layout from 'manifold/components/layout';
+import R from 'ramda';
 
-import {Col} from 'react-bootstrap';
+import Layout from 'manifold/components/layout';
+import Preview from 'manifold/components/preview';
+import PostPreview from 'manifold/components/post-preview';
+
+import {Row, Col} from 'react-bootstrap';
 
 export default React.createClass({
   mixins: [ fluxApp.mixins.component ],
@@ -11,8 +15,7 @@ export default React.createClass({
 
   statics: {
     load: function loadComponent(route, fluxApp) {
-      var postActions = fluxApp.getActions('posts');
-      return postActions.getAll();
+      return fluxApp.getActions('posts').getAll();
     }
   },
 
@@ -23,18 +26,26 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    const postsStore = fluxApp.getStore('posts');
-    this.setState({
-      posts: postsStore.state.all
-    });
+    const posts = fluxApp.getStore('posts').state.posts;
+    this.setState({ posts });
   },
 
   render: function renderHomePage() {
+    const posts = R.map(post => {
+      return (
+        <PostPreview 
+          showMore={true} 
+          title={post.title} 
+          body={post.post} 
+          key={post.id} 
+          id={post.id}
+          />
+      );
+    }, this.state.posts);
+
     return (
       <Layout>
-        <Col>
-          Hi, this is a home page
-        </Col>
+        {posts}
       </Layout>
     );
   }

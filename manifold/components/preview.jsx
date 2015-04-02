@@ -14,6 +14,10 @@ export default React.createClass({
 
   mixins: [ fluxApp.mixins.component ],
 
+  propTypes: {
+    post: React.PropTypes.string
+  },
+
   flux: {
     stores: {
       updateRaw: 'draft'
@@ -34,9 +38,11 @@ export default React.createClass({
   },
 
   render() {
+    const html = this.state.parsed || markdown.parse(this.props.post);
+
     return (
       <div 
-        dangerouslySetInnerHTML={{__html: this.state.parsed}} 
+        dangerouslySetInnerHTML={{ __html: html }} 
         style={STYLE.wrapper} 
        />
     );
