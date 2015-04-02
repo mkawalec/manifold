@@ -22,11 +22,15 @@ const STYLE = {
     height: '100%'
   },
   column: {
+    height: 'calc(100% - 5px)',
+    marginTop: '5px'
+  },
+  previewColumn: {
     height: '100%'
   },
   addBtn: {
     width: '100%',
-    marginBottom: '5px'
+    marginTop: '5px'
   }
 };
 
@@ -50,6 +54,7 @@ export default React.createClass({
     return (
       <AdminLayout>
         <Col md={6} style={STYLE.column}>
+          <PostsList/>
           <Button 
             bsStyle='success'
             onClick={() => fluxApp.getRouter().go('/admin/add-post')}
@@ -57,10 +62,9 @@ export default React.createClass({
             >
               Add Post
           </Button>
-          <PostsList/>
         </Col>
 
-        <Col md={6} style={STYLE.column}>
+        <Col md={6} style={STYLE.previewColumn}>
           <Preview />
         </Col>
 
