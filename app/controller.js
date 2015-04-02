@@ -24,6 +24,7 @@ function appHandler(request, reply) {
     } else if (err.path) {
       return reply.redirect(err.path);
     } else {
+      console.log(err.stack);
       reply(err);
     }
   });

@@ -24,7 +24,6 @@ export default function handler(request, reply) {
 
       return post.set(request.payload).save();
     })
-    .then(cleanBookshelf)
-    .then(Post.cleanRelated)
+    .then(post => { id: post.get('id') })
     .nodeify(reply);
 }

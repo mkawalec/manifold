@@ -38,7 +38,26 @@ export default React.createClass({
       onFail: [ 'posts.create:failed' ]
     },
     stores: {
-      onPostUpdated: 'post'
+      onPostUpdated: 'post',
+      onRouteChange: fluxApp.getRouter().getStore().id
+    }
+  },
+
+  onRouteChange() {
+    const currentRoute = fluxApp.getRouter().getStore().state.current;
+    if (currentRoute.route) {
+      this.setState({
+        postId: currentRoute.route.params.id
+      });
+    }
+  },
+
+  componentDidMount() {
+    const currentRoute = fluxApp.getRouter().getStore().state.current;
+    const postId = currentRoute.route.params.id;
+    if (postId) {
+      fluxApp.getActions('posts').get(postId);
+      this.onRouteChange();
     }
   },
 
@@ -52,9 +71,13 @@ export default React.createClass({
 
   onPostUpdated() {
     const post = fluxApp.getStore('post').state;
-    this.setState({
-      postId: post.id
-    });
+    if (post.post) {
+      this.refs.post.getDOMNode().value = post.post;
+      this.refs.title.getDOMNode().value = post.title;
+      this.updateStore();
+    } else {
+      fluxApp.getRouter().go('/admin/add-post/' + post.id);
+    }
   },
 
   updateStore: _.debounce(function() {
@@ -81,7 +104,7 @@ export default React.createClass({
     return (
       <AdminLayout>
         <Col md={12}>
-          <input type='text' style={STYLE.title} ref='title' a/>
+          <input type='text' style={STYLE.title} ref='title' />
         </Col>
         <Col md={6} style={STYLE.col}>
           <textarea 
@@ -90,11 +113,11 @@ export default React.createClass({
             style={STYLE.postInput} 
             />
             <Button 
-              bsStyle='primary' 
+              bsStyle={ this.state.postId ? 'success' : 'primary'}
               style={STYLE.addBtn}
               onClick={this.addPost}
               >
-                Add post
+                { this.state.postId ? 'Update post' : 'Add post' }
             </Button>
         </Col>
 

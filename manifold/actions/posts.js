@@ -5,6 +5,8 @@ import R from 'ramda';
 export default fluxApp.createActions('posts', {
   getAll: () => api.request({ url: '/api/posts' }),
 
+  get: (id) => api.request({ url: '/api/posts/' + id }),
+
   create(payload) {
     return api.request({
       url: '/api/posts',
@@ -22,5 +24,5 @@ export default fluxApp.createActions('posts', {
       method: 'PUT',
       payload
     });
-  }
+  },
 });
