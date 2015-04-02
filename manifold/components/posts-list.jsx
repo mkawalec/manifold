@@ -8,6 +8,11 @@ import Post from 'manifold/components/posts-list/post';
 const STYLE = {
   wrapper: {
     border: '2px solid #000',
+    overflow: 'auto',
+    height: 'calc(100% - 50px)',
+  },
+  selected: {
+    backgroundColor: '#9f9'
   }
 };
 
@@ -18,7 +23,8 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      posts: []
+      posts: [],
+      selectedPost: -1
     };
   },
 
@@ -37,8 +43,23 @@ export default React.createClass({
     this.postsUpdated();
   },
 
+  selectPost(selectedPost) {
+    return () => {
+      this.setState({ selectedPost });
+    };
+  },
+
   render() {
-    const posts = R.map(post => <Post post={post}/>, this.state.posts);
+    const posts = R.map(post => {
+      return (
+        <Post 
+          onClick={this.selectPost(post.id)} 
+          post={post}
+          key={post.id}
+          style={post.id === this.state.selectedPost ? STYLE.selected : null}
+        />
+      );
+    }, this.state.posts);
 
     return (
       <Row style={STYLE.wrapper}>

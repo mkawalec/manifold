@@ -4,6 +4,7 @@ import fluxApp from 'fluxapp';
 import {Row, Col, Button} from 'react-bootstrap';
 import PostsList from 'manifold/components/posts-list';
 import AdminLayout from 'manifold/components/admin-layout';
+import Preview from 'manifold/components/preview';
 
 const isLoggedIn = (fluxapp) => {
   return fluxapp.getActions('session').get().then(() => {
@@ -59,7 +60,10 @@ export default React.createClass({
           <PostsList/>
         </Col>
 
-        <Col md={6}/>
+        <Col md={6} style={STYLE.column}>
+          <Preview />
+        </Col>
+
       </AdminLayout>
     );
   }
