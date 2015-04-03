@@ -22,7 +22,7 @@ const isSessionActive = (fluxapp) => {
     const session = fluxapp.getStore('session').state;
     if (session && session.username) {
       const router = fluxapp.getRouter ? fluxapp.getRouter() : fluxApp.getRouter();
-      return router.go('/');
+      return router.go('/admin/dashboard');
     }
   });
 };

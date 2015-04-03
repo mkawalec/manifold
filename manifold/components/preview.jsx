@@ -38,7 +38,7 @@ export default React.createClass({
   },
 
   render() {
-    const html = this.state.parsed || markdown.parse(this.props.post);
+    const html = this.state.parsed || markdown.parse(this.props.post || '');
 
     return (
       <div 

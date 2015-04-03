@@ -15,6 +15,6 @@ export default function login(request, reply) {
         email: user.get('email')
       });
 
-      return reply.redirect('/');
+      return reply.redirect('/admin/dashboard');
     }).catch(reply);
 }
