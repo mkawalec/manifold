@@ -19,7 +19,6 @@ clean:
 	rm -rf ./dist
 
 dev: 
-	npm install --python=python2
 	make clean
 	NODE_ENV=development $(WEBPACK) --content-base dist/ \
 		--debug \

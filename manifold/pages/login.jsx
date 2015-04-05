@@ -95,7 +95,7 @@ export default React.createClass({
   render: function renderHomePage() {
     return (
       <Layout>
-        <Col xs={4} xsOffset={4}>
+        <Col md={4} mdOffset={4}>
           <Errors errors={this.state.errors} onDismiss={this.dismissError} />
 
           <form 

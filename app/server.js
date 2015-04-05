@@ -15,7 +15,4 @@ hapi.register(require('hapi-auth-signed-cookie'), function() {
 postHandler(hapi);
 dbErrors(hapi);
 
-const api = require('iso-fetch');
-api.init({ hapi: { server: hapi } });
-
 export default hapi;

@@ -1,5 +1,4 @@
 import fluxApp from 'fluxapp';
-import api from 'iso-fetch';
 import R from 'ramda';
 
 function decodeSession() {
@@ -23,7 +22,7 @@ type LoginDetails = {
 
 export default fluxApp.createActions('session', {
   login(payload: LoginDetails) {
-    return api.request({
+    return fluxApp.fetch({
       url: '/login',
       method: 'POST',
       payload: payload
@@ -34,7 +33,7 @@ export default fluxApp.createActions('session', {
     if (typeof document !== 'undefined') {
       return decodeSession();
     } else {
-      return api.request({
+      return fluxApp.fetch({
         url: '/session'
       });
     }

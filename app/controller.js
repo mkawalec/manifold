@@ -1,7 +1,12 @@
 import Mustache from 'mustache';
 import fs from 'fs';
 import fluxApp from 'fluxapp';
-fluxApp.setPlatform('node');
+import server from 'app/server';
+fluxApp.setPlatform('node', {
+  fetch: {
+    hapi: { server: server }
+  }
+});
 
 import bootstrap from 'manifold/bootstrap';
 import StaticController from 'app/static/controller';
@@ -15,7 +20,11 @@ Mustache.parse(indexTemplate);
 bootstrap(fluxApp);
 
 function appHandler(request, reply) {
-  fluxApp.render(request).then(function handler(page) {
+  const params = {
+    cookie: request.headers.cookie
+  };
+
+  fluxApp.render(request, params).then(function handler(page) {
     const rendered = Mustache.render(indexTemplate, { page });
     return reply(rendered);
   }).catch(function(err: Object) {
