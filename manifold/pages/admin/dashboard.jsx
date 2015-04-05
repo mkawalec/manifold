@@ -1,10 +1,12 @@
 import React from 'react';
 import fluxApp from 'fluxapp';
+import Promise from 'bluebird';
 
 import {Row, Col, Button} from 'react-bootstrap';
 import PostsList from 'manifold/components/posts-list';
 import AdminLayout from 'manifold/components/admin-layout';
 import Preview from 'manifold/components/preview';
+import RequireLogin from 'manifold/mixins/require-login';
 
 const isLoggedIn = (fluxapp) => {
   return fluxapp.getActions('session').get().then(() => {
@@ -37,18 +39,15 @@ const STYLE = {
 export default React.createClass({
   displayName: 'dashboard',
 
-  mixins: [ fluxApp.mixins.component ],
+  mixins: [ fluxApp.mixins.component, RequireLogin ],
 
   statics: {
     load(route, fluxApp) {
-      return fluxApp.getActions('posts').getAll();
-      //return isLoggedIn(fluxApp);
+      return RequireLogin.applyAuth(fluxApp).then(
+        () => fluxApp.getActions('posts').getAll()
+      );
     }
   },
-  /*
-  componentWillMount() {
-    return isLoggedIn(this);
-  },*/
 
   render() {
     return (

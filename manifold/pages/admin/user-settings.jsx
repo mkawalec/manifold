@@ -5,6 +5,7 @@ import {Input, Col} from 'react-bootstrap';
 const Router = fluxApp.getRouter();
 
 import AdminLayout from 'manifold/components/admin-layout';
+import RequireLogin from 'manifold/mixins/require-login';
 
 const PASS_OPTS = {
   type: 'password',
@@ -15,11 +16,11 @@ const PASS_OPTS = {
 export default React.createClass({
   displayName: 'userSettings',
 
-  mixins: [ fluxApp.mixins.component ],
+  mixins: [ fluxApp.mixins.component, RequireLogin ],
 
   static: {
     load(route, fluxApp) {
-      return fluxApp.getActions('session').get();
+      return RequireLogin.applyAuth(fluxApp);
     }
   },
 
@@ -29,8 +30,6 @@ export default React.createClass({
 
   changePass() {
     const oldPass = this.getRefValue('oldPass');
-
-
   },
 
   render() {

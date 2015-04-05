@@ -8,7 +8,8 @@ import {Col, form, Input, Button} from 'react-bootstrap';
 import Layout from 'manifold/components/layout';
 import Errors from 'manifold/components/errors';
 
-const router = fluxApp.getRouter();
+import RedirectIfLoggedIn from 'manifold/mixins/redirect-if-logged-in';
+const redirectMixin = RedirectIfLoggedIn('/admin/dashboard');
 
 function makeError(msg) {
   return {
@@ -17,18 +18,8 @@ function makeError(msg) {
   };
 }
 
-const isSessionActive = (fluxapp) => {
-  return fluxapp.getActions('session').get().then(() => {
-    const session = fluxapp.getStore('session').state;
-    if (session && session.username) {
-      const router = fluxapp.getRouter ? fluxapp.getRouter() : fluxApp.getRouter();
-      return router.go('/admin/dashboard');
-    }
-  });
-};
-
 export default React.createClass({
-  mixins: [ fluxApp.mixins.component ],
+  mixins: [ fluxApp.mixins.component, redirectMixin ],
 
   displayName: 'login',
 
@@ -43,12 +34,8 @@ export default React.createClass({
 
   statics: {
     load(route, fluxApp) {
-      return isSessionActive(fluxApp);
+      return redirectMixin.applyAuth(fluxApp);
     }
-  },
-
-  componentWillMount() {
-    return isSessionActive(this);
   },
 
   onLoginFail(fail, error) {

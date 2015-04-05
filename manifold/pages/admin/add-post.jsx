@@ -6,6 +6,7 @@ import R from 'ramda';
 
 import AdminLayout from 'manifold/components/admin-layout';
 import Preview from 'manifold/components/preview';
+import RequireLogin from 'manifold/mixins/require-login';
 
 const STYLE = {
   col: {
@@ -31,7 +32,7 @@ const STYLE = {
 export default React.createClass({
   displayName: 'addPost',
 
-  mixins: [ fluxApp.mixins.component ],
+  mixins: [ fluxApp.mixins.component, RequireLogin ],
 
   flux: {
     actions: {
@@ -40,6 +41,12 @@ export default React.createClass({
     stores: {
       onPostUpdated: 'post',
       onRouteChange: fluxApp.getRouter().getStore().id
+    }
+  },
+
+  statics: {
+    load(route, fluxApp) {
+      return RequireLogin.applyAuth(fluxApp);
     }
   },
 
