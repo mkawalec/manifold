@@ -2,22 +2,16 @@
 
 ### How to get it working
 
-You'll need docker, fig and Make installed. Other than that the commands
-that follow should keep you covered. In one terminal run:
+You need to install some stuff globally first, and init the environment:
 
-    fig up
+    sudo npm install -g foreman mariner
+    make init
 
-In another:
+You need to fire up the interface and the server then. In two separate
+terminals to:
 
-    npm install -g foreman mariner
     make dev
-
-And in a third one start the server (while having the result of `make dev`
-running):
-
-    mariner migrate up
     make server
 
-
-Then head to `localhost:5000` or `localhost:5000/login` to login. The
-default credentials are `admin:admin`. Be safe.
+Keep em both running and head to `localhost:5000` or
+`localhost:5000/login` to log in. Default credentials are `admin:admin`

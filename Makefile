@@ -13,12 +13,24 @@ build:
 		--bail
 
 install:
-	npm install --ignore-scripts
+	npm install --python=python2 --ignore-scripts
 
 clean:
 	rm -rf ./dist
 
+start-docker:
+	fig up -d postgres
+
+init:
+	make install
+	make start-docker
+	export $(cat .env|xargs)
+	mariner migrate up
+	fig stop postgres
+
 dev: 
+	make install
+	make start-docker
 	make clean
 	NODE_ENV=development $(WEBPACK) --content-base dist/ \
 		--debug \
