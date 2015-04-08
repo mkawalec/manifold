@@ -13,7 +13,8 @@ build:
 		--bail
 
 install:
-	npm install --python=python2 --ignore-scripts
+	export $(cat .env|xargs)
+	npm install --python=$(PYTHON) --ignore-scripts
 
 clean:
 	rm -rf ./dist
