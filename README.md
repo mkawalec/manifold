@@ -7,8 +7,8 @@ You need to install some stuff globally first, and init the environment:
     sudo npm install -g foreman mariner
     make init
 
-You need to fire up the interface and the server then. In two separate
-terminals to:
+And then fire up the interface and the server then. In two separate
+terminals do:
 
     make dev
     make server
