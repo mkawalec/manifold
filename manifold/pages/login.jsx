@@ -60,7 +60,7 @@ export default React.createClass({
   },
 
   isSessionActive() {
-    return isSessionActive(this);
+    return redirectMixin.applyAuth(this);
   },
 
   onLogin(e) {

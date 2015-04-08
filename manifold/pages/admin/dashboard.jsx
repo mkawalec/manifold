@@ -8,17 +8,6 @@ import AdminLayout from 'manifold/components/admin-layout';
 import Preview from 'manifold/components/preview';
 import RequireLogin from 'manifold/mixins/require-login';
 
-const isLoggedIn = (fluxapp) => {
-  return fluxapp.getActions('session').get().then(() => {
-    const session = fluxapp.getStore('session').state;
-    if (!session || !session.username) {
-      console.log('moving');
-      const router = fluxapp.getRouter ? fluxapp.getRouter() : fluxApp.getRouter();
-      return router.go('/');
-    }
-  });
-};
-
 const STYLE = {
   wrapper: {
     height: '100%'
