@@ -47,7 +47,6 @@ export default React.createClass({
 
   render() {
     const {post} = this.state;
-    console.log('got post', post);
 
     return (
       <Layout>
