@@ -21,11 +21,14 @@ clean:
 start-docker:
 	fig up -d postgres
 
+migrate:
+	export $(cat .env|xargs)
+	mariner migrate up
+
 init:
 	make install
 	make start-docker
-	export $(cat .env|xargs)
-	mariner migrate up
+	make migrate
 	fig stop postgres
 
 dev: 
