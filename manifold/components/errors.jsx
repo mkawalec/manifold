@@ -14,7 +14,7 @@ export default React.createClass({
       const dismiss = R.partial(this.props.onDismiss, error.id);
 
       return (
-        <Alert bsStyle='danger' onDismiss={dismiss}>
+        <Alert bsStyle={error.style || 'danger'} onDismiss={dismiss}>
           <p>{error.msg}</p>
         </Alert>
       );

@@ -3,24 +3,27 @@ import Boom from 'boom';
 
 export default function handler(request, reply) {
   if (request.auth.credentials.id !== request.params.userId) {
-    throw Boom.unauthorized('You cannot modify others');
+    throw Boom.unauthorized('You cannot modify others, come on');
   }
 
   User.Model
-    .forge()
-    .fetch({ id: request.params.userId })
+    .forge({ id: request.params.userId })
+    .fetch({ require: true })
     .then(function(user) {
+      console.log('user', user);
       if (request.payload.password) {
-        if (user.comparePassword(user, request.payload.oldPassword)) {
+        if (User.Model.comparePassword(user, request.payload.oldPassword)) {
           user.setPassword(request.payload.password);
           delete request.payload.password;
+          delete request.payload.oldPassword;
         } else {
-          throw Boom.unauthorized('The password is incorrect');
+          throw Boom.unauthorized('The current password is incorrect');
         }
       }
 
       return user.set(request.payload);
     })
     .then(user => user.save())
+    .then(User.cleanSensitiveData)
     .nodeify(reply);
 }

@@ -50,10 +50,14 @@ export default (hapi) => {
         params: Joi.object({
           userId: Joi.string().guid()
         }),
-        payload: Joi.object(R.merge(USER_PROPS, {
+        payload: Joi.object({
           salt: Joi.any().forbidden(),
           id: Joi.any().forbidden(),
-        })).unknown(false)
+          oldPassword: Joi.string().min(5).optional(),
+          username: Joi.string().alphanum().min(3).optional(),
+          password: Joi.string().min(5).regex(/\S{5,}/).optional(),
+          email: Joi.string().email().trim().optional(),
+        }).unknown(false)
       },
       auth: 'session'
     }

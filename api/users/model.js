@@ -16,7 +16,14 @@ function cleanSensitiveData(user) {
 }
 
 const Model = Bookshelf.PG.Model.extend({
-  tableName: 'users'
+  tableName: 'users',
+
+  setPassword : function setPassword(password) {
+    var hash = crypto.createHash('sha512');
+    hash.update(this.get('salt') + password);
+
+    this.set({ password: hash.digest('base64') });
+  }
 }, {
   comparePassword(user, password) {
     const salt = user.get('salt');
@@ -55,13 +62,6 @@ const Model = Bookshelf.PG.Model.extend({
 
     return Model.forge(props);
   },
-
-  setPassword : function setPassword(password) {
-    var hash = crypto.createHash('sha512');
-    hash.update(this.get('salt') + password);
-
-    this.set({ password: hash.digest('base64') });
-  }
 });
 
 const Collection = Bookshelf.PG.Collection.extend({

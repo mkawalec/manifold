@@ -4,3 +4,4 @@ require('./session');
 require('./login');
 require('./draft-store');
 require('./alerts');
+require('./user-update');
