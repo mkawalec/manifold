@@ -10,7 +10,6 @@ export default function handler(request, reply) {
     .forge({ id: request.params.userId })
     .fetch({ require: true })
     .then(function(user) {
-      console.log('user', user);
       if (request.payload.password) {
         if (User.Model.comparePassword(user, request.payload.oldPassword)) {
           user.setPassword(request.payload.password);
