@@ -39,18 +39,9 @@ export default React.createClass({
   },
 
   onLoginFail(fail, error) {
-    let {errors} = this.state;
-
-    if (error.message === 'Unauthorized') {
-      errors.push(makeError('Your password is incorrect'));
-    } else if (error.message === 'Not Found') {
-      errors.push(makeError('The username is not found'));
-    } else if (error.message === 'Bad Request') {
-      errors.push(makeError(
-        'Username or password contains illegal characters or is too short'));
-    }
-
-    this.setState({ errors });
+    this.setState({ 
+      errors: [ makeError(error.message) ]
+    });
   },
 
   getInitialState() {
