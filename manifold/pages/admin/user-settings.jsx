@@ -55,13 +55,14 @@ export default React.createClass({
 
   onUpdate() {
     let {passErrors} = this.state;
-    passErrors.push(makeError('Update successful', 'success'));
+    passErrors = [ makeError('Update successful', 'success') ];
 
-    this.setState({ passErrors });
-
-    this.refs.oldPass.getDOMNode().value = '';
-    this.refs.newPass.getDOMNode().value = '';
-    this.refs.newPassRepeated.getDOMNode().value = '';
+    this.setState({ 
+      passErrors,
+      oldPass: '',
+      newPass: '',
+      newPassRepeated: ''
+    });
   },
 
   onUpdateFailed(action, e) {
@@ -105,7 +106,7 @@ export default React.createClass({
   update(updateWhat) {
     return (e) => {
       this.setState({
-        [updateWhat]: e.target.value;
+        [updateWhat]: e.target.value
       });
     };
   },
