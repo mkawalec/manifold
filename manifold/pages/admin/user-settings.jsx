@@ -9,6 +9,7 @@ const Router = fluxApp.getRouter();
 import AdminLayout from 'manifold/components/admin-layout';
 import RequireLogin from 'manifold/mixins/require-login';
 import Errors from 'manifold/components/errors';
+import UserActions from 'manifold/actions/user';
 
 const PASS_OPTS = {
   type: 'password',
@@ -86,7 +87,7 @@ export default React.createClass({
     }
 
     fluxApp.getActions('session').get().spread((action, session) => {
-      fluxApp.getActions('user').update({
+      UserActions.update({
         id: session.id,
         password: newPass,
         oldPassword: oldPass
