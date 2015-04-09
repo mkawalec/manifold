@@ -2,13 +2,13 @@
 
 ### How to get it working
 
-You need to install some stuff globally first, and init the environment:
+You need to have docker and fig installed, then:
 
     sudo npm install -g foreman mariner
     make init
 
-And then fire up the interface and the server then. In two separate
-terminals do:
+And fire up the interface and the server. In two separate terminals
+execute:
 
     make dev
     make server
