@@ -1,5 +1,4 @@
 import fluxApp from 'fluxapp';
-import {Buffer} from 'buffer/';
 
 export default fluxApp.createStore('login', {
   actions: {

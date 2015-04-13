@@ -13,7 +13,7 @@ build:
 		--bail
 
 install:
-	export $(cat .env|xargs)
+	export $(cat ./.env|xargs)
 	npm install --python=$(PYTHON) --ignore-scripts
 
 clean:
