@@ -39,8 +39,8 @@ CREATE TABLE users_posts (
 
 INSERT INTO users (username, password, salt) VALUES (
   'admin',
-  'J8soTAOQzrck1xkh1WZUMGfPxORY2/IHrAo59LvLJsYsbBSJdKeyXy7rh/FDGS/lSkrhiXtsbycytjEgrA8GVw==',
-  'e0eWF5KZEPrBik6v57PL1fL/keU3P/L8Msr1Q53EY6G4o8QT+M2dnQpU67oo4JXjcrpOZJonTLU/O7LyC5uMii5GPmj2hMYfyT81Aso+R9hkW21HDEocR4WRh32USSRNt761SEytGOT8nB1UPBmmuzawqzLpb1iPQKEiSm0qw1g='
+  'BBNaVmvBIU7Ta+Uox8G3OglICR4tvKRBnlbjxiChmY/1/AL93Wi2tbBzsVuUUuneYNVyeRxFiq0E6f8aRUaBKw==',
+  'NsbEGZYHvzD2+E5UCcpMUrE+ihjB8jL+qdwalEiqlB25QtoIy4lehffF7i9EIQ95qTGvtHhAj0KDEzesj9l+eWKg/EM5rTLx/iO9FmwK2Tyl2ZLLcgLfXzrHDqm1TfYFYt3EEElDWbTbHj5fYwesnmr1/YdSZCzen7p5gmK4Jiw='
 );
 
 COMMIT;

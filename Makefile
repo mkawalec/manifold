@@ -6,6 +6,9 @@ WEBPACK = node_modules/webpack/bin/webpack.js
 build:
 	make clean
 	$(WEBPACK) --optimize-minimize \
+		--content-base dist/ \
+		--colors \
+		--progress \
 		--optimize-occurence-order \
 		--devtool source-map \
 		--verbose \
@@ -13,8 +16,7 @@ build:
 		--bail
 
 install:
-	export $(cat ./.env|xargs)
-	npm install --python=$(PYTHON) --ignore-scripts
+	./.install.sh
 
 clean:
 	rm -rf ./dist
@@ -23,14 +25,17 @@ start-docker:
 	fig up -d postgres
 
 migrate:
-	export $(cat .env|xargs)
-	mariner migrate up
+	./.migrate.sh
+
+setup-hooks:
+	./.hooks-setup.sh
 
 init:
 	make install
 	make start-docker
 	make migrate
 	fig stop postgres
+	make setup-hooks
 
 dev: 
 	make install
