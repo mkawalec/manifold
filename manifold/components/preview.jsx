@@ -27,7 +27,7 @@ export default React.createClass({
   getInitialState() {
     return {
       parsed: ''
-    }
+    };
   },
 
   updateRaw() {
@@ -41,9 +41,9 @@ export default React.createClass({
     const html = this.state.parsed || markdown.parse(this.props.post || '');
 
     return (
-      <div 
-        dangerouslySetInnerHTML={{ __html: html }} 
-        style={STYLE.wrapper} 
+      <div
+        dangerouslySetInnerHTML={{ __html: html }}
+        style={STYLE.wrapper}
        />
     );
   }

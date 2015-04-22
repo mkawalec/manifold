@@ -7,7 +7,7 @@ export default fluxApp.createActions('posts', {
   get: (id) => fluxApp.fetch({ url: '/api/posts/' + id }),
 
   delete: (id) => {
-    return fluxApp.fetch({ 
+    return fluxApp.fetch({
       url: '/api/posts/' + id,
       method: 'DELETE'
     });

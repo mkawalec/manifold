@@ -61,8 +61,8 @@ export default React.createClass({
   render() {
     const posts = R.map(post => {
       return (
-        <Post 
-          onClick={this.selectPost(post.id)} 
+        <Post
+          onClick={this.selectPost(post.id)}
           post={post}
           key={post.id}
           style={post.id === this.state.selectedPost ? STYLE.selected : null}

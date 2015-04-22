@@ -36,7 +36,7 @@ export default React.createClass({
   },
 
   render() {
-    const alerts = R.map(alert => <Alert key={alert.id} alert={alert} />, this.state.alerts); 
+    const alerts = R.map(alert => <Alert key={alert.id} alert={alert} />, this.state.alerts);
 
     return (
       <div style={STYLE}>

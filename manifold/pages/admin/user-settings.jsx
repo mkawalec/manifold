@@ -4,8 +4,6 @@ import {Input, Col} from 'react-bootstrap';
 import uuid from 'uuid';
 import R from 'ramda';
 
-const Router = fluxApp.getRouter();
-
 import AdminLayout from 'manifold/components/admin-layout';
 import RequireLogin from 'manifold/mixins/require-login';
 import Errors from 'manifold/components/errors';
@@ -58,7 +56,7 @@ export default React.createClass({
     let {passErrors} = this.state;
     passErrors = [ makeError('Update successful', 'success') ];
 
-    this.setState({ 
+    this.setState({
       passErrors,
       oldPass: '',
       newPass: '',

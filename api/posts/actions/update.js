@@ -1,8 +1,6 @@
 import Post from '../model';
 import R from 'ramda';
 
-const cleanBookshelf = R.compose(JSON.parse, JSON.stringify);
-
 export default function handler(request, reply) {
   const userId = request.auth.credentials.id;
 
@@ -24,7 +22,7 @@ export default function handler(request, reply) {
 
       return post.set(request.payload).save();
     })
-    .then(post => { 
+    .then(post => {
       return { id: post.get('id') };
     })
     .nodeify(reply);

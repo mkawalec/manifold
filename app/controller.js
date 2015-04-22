@@ -27,7 +27,7 @@ function appHandler(request, reply) {
   fluxApp.render(request, params).then(function handler(page) {
     const rendered = Mustache.render(indexTemplate, { page });
     return reply(rendered);
-  }).catch(function(err: Object) {
+  }).catch(function(err) {
     if (err.code === 404) {
       return reply('Not found').code(404);
     } else if (err.path) {

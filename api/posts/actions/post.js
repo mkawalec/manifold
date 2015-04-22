@@ -10,12 +10,12 @@ export default function handler(request, reply) {
     .forge({ post, title, published })
     .save()
     .bind({})
-    .then(function(post) { 
-      this.id = post.id;
-      return post;
+    .then(function(dbPost) {
+      this.id = dbPost.id;
+      return dbPost;
     })
-    .then(post => post.authors().attach([ authorId ]))
-    .then(function() { 
+    .then(dbPost => dbPost.authors().attach([ authorId ]))
+    .then(function() {
       return this;
     })
     .nodeify(reply);

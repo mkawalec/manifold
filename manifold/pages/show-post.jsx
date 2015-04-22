@@ -11,7 +11,7 @@ export default React.createClass({
 
   statics: {
     load(route, fluxApp) {
-      return fluxApp.getActions('posts').get(route.params.id)
+      return fluxApp.getActions('posts').get(route.params.id);
     }
   },
 
@@ -51,7 +51,7 @@ export default React.createClass({
     return (
       <Layout>
         <PostPreview title={post.title} body={post.post} />
-      </Layout> 
+      </Layout>
     );
   }
 });

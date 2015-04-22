@@ -43,7 +43,7 @@ export default React.createClass({
       <AdminLayout>
         <Col md={6} style={STYLE.column}>
           <PostsList/>
-          <Button 
+          <Button
             bsStyle='success'
             onClick={() => fluxApp.getRouter().go('/admin/add-post')}
             style={STYLE.addBtn}

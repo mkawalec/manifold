@@ -124,12 +124,12 @@ export default React.createClass({
           <input type='text' style={STYLE.title} ref='title' />
         </Col>
         <Col md={6} style={STYLE.col}>
-          <textarea 
-            ref='post' 
-            onChange={this.updateStore} 
-            style={STYLE.postInput} 
+          <textarea
+            ref='post'
+            onChange={this.updateStore}
+            style={STYLE.postInput}
             />
-            <Button 
+            <Button
               bsStyle={ this.state.postId ? 'success' : 'primary'}
               style={STYLE.addBtn}
               onClick={this.addPost}

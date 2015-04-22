@@ -1,3 +1,4 @@
+/* global document */
 import fluxApp from 'fluxapp';
 import R from 'ramda';
 
@@ -13,15 +14,10 @@ function decodeSession() {
   } else {
     return {};
   }
-};
-
-type LoginDetails = {
-  username: string;
-  password: string
-};
+}
 
 export default fluxApp.createActions('session', {
-  login(payload: LoginDetails) {
+  login(payload) {
     return fluxApp.fetch({
       url: '/login',
       method: 'POST',

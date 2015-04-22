@@ -35,11 +35,11 @@ export default React.createClass({
   render: function renderHomePage() {
     const posts = R.map(post => {
       return (
-        <PostPreview 
-          showMore={true} 
-          title={post.title} 
-          body={post.post} 
-          key={post.id} 
+        <PostPreview
+          showMore={true}
+          title={post.title}
+          body={post.post}
+          key={post.id}
           id={post.id}
           />
       );

@@ -12,6 +12,6 @@ export default fluxApp.createStore('draft', {
   getInitialState() {
     return {
       body: ''
-    }
+    };
   },
 });

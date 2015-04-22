@@ -2,12 +2,6 @@ import fluxApp from 'fluxapp';
 import uuid from 'uuid';
 import R from 'ramda';
 
-type Alert = {
-  message: string;
-  type: string;
-  timeout: any
-};
-
 export default fluxApp.createStore('alerts', {
   actions: {
     onAdd: 'alerts.add',
@@ -17,17 +11,17 @@ export default fluxApp.createStore('alerts', {
   getInitialState() {
     return {
       alerts: []
-    }
+    };
   },
 
-  onRemove(id: string) {
+  onRemove(id) {
     const alerts = R.reject(el => el.id === id,
       this.state.alerts);
 
     this.setState({ alerts });
   },
 
-  onAdd(toAdd: Alert) {
+  onAdd(toAdd) {
     const {alerts} = this.state;
     toAdd = R.clone(toAdd);
     toAdd.id = uuid.v4();

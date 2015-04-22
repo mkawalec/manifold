@@ -11,7 +11,6 @@ const STYLE = {
   }
 };
 
-
 export default React.createClass({
   displayName: 'postPreview',
 
@@ -25,7 +24,7 @@ export default React.createClass({
   getDefaultProps() {
     return {
       showMore: false
-    }
+    };
   },
 
   process(body) {
@@ -50,7 +49,7 @@ export default React.createClass({
 
     const moreLink = this.props.showMore ? (
       <Link href={ '/post/' + this.props.id }>Show more...</Link>
-    ) : undefined;
+    ) : void(0);
 
     return (
       <Row>

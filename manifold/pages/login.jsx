@@ -39,7 +39,7 @@ export default React.createClass({
   },
 
   onLoginFail(fail, error) {
-    this.setState({ 
+    this.setState({
       errors: [ makeError(error.message) ]
     });
   },
@@ -76,10 +76,10 @@ export default React.createClass({
         <Col md={4} mdOffset={4}>
           <Errors errors={this.state.errors} onDismiss={this.dismissError} />
 
-          <form 
-            className='form-horizontal' 
-            onSubmit={this.onLogin} 
-            action='/login' 
+          <form
+            className='form-horizontal'
+            onSubmit={this.onLogin}
+            action='/login'
             method='post'
             >
               <Input type="text"
