@@ -1,6 +1,6 @@
 import fluxApp from 'fluxapp';
 
-export default fluxApp.createStore('posts', {
+export default fluxApp.registerStore('posts', {
   actions: {
     onGetAll: 'posts.getAll'
   },

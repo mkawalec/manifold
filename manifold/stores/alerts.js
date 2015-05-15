@@ -2,7 +2,7 @@ import fluxApp from 'fluxapp';
 import uuid from 'uuid';
 import R from 'ramda';
 
-export default fluxApp.createStore('alerts', {
+export default fluxApp.registerStore('alerts', {
   actions: {
     onAdd: 'alerts.add',
     onRemove: 'alerts.remove'

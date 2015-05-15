@@ -1,6 +1,6 @@
 import fluxApp from 'fluxapp';
 
-export default fluxApp.createStore('post', {
+export default fluxApp.registerStore('post', {
   actions: {
     onUpdate: [ 'posts.create', 'posts.update', 'posts.get', 'draft.setPreview' ],
     onDelete: 'posts.delete'

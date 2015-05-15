@@ -26,7 +26,7 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    const posts = fluxApp.getStore('posts').state.posts;
+    const posts = this.getStore('posts').state.posts;
     if (posts) {
       this.setState({ posts });
     }

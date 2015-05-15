@@ -10,8 +10,8 @@ export default React.createClass({
   mixins: [ fluxApp.mixins.component ],
 
   statics: {
-    load(route, fluxApp) {
-      return fluxApp.getActions('posts').get(route.params.id);
+    load(route, context) {
+      return context.getActions('posts').get(route.params.id);
     }
   },
 
@@ -23,16 +23,16 @@ export default React.createClass({
 
   flux: {
     stores: {
-      onRouteChange: fluxApp.getRouter().getStore().id,
+      onRouteChange: 'router',
       showPost: 'post',
     }
   },
 
   onRouteChange() {
-    const currentRoute = fluxApp.getRouter().getStore().state.current;
+    const currentRoute = this.context.getRouterStore().state.current;
 
     if (currentRoute.route.params.id) {
-      fluxApp.getActions('posts').get(currentRoute.route.params.id);
+      this.getActions('posts').get(currentRoute.route.params.id);
     }
   },
 

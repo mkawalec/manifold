@@ -16,9 +16,9 @@ function decodeSession() {
   }
 }
 
-export default fluxApp.createActions('session', {
+export default fluxApp.registerActions('session', {
   login(payload) {
-    return fluxApp.fetch({
+    return this.context.fetcher({
       url: '/login',
       method: 'POST',
       payload: payload
@@ -29,9 +29,7 @@ export default fluxApp.createActions('session', {
     if (typeof document !== 'undefined') {
       return decodeSession();
     } else {
-      return fluxApp.fetch({
-        url: '/session'
-      });
+      return this.context.fetcher({ url: '/session' });
     }
   }
 

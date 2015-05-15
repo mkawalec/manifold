@@ -1,6 +1,6 @@
 import fluxApp from 'fluxapp';
 
-export default fluxApp.createStore('login', {
+export default fluxApp.registerStore('login', {
   actions: {
     onLogin: 'session.login'
   },

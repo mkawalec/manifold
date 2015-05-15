@@ -22,7 +22,7 @@ clean:
 	rm -rf ./dist
 
 start-docker:
-	fig up -d postgres
+	docker-compose up -d postgres
 
 migrate:
 	./.migrate.sh
@@ -34,7 +34,7 @@ init:
 	make install
 	make start-docker
 	make migrate
-	fig stop postgres
+	docker-compose stop postgres
 	make setup-hooks
 
 dev: 

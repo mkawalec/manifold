@@ -1,7 +1,7 @@
 import fluxApp from 'fluxapp';
 import R from 'ramda';
 
-export default fluxApp.createActions('posts', {
+export default fluxApp.registerActions('posts', {
   getAll: () => fluxApp.fetch({ url: '/api/posts' }),
 
   get: (id) => fluxApp.fetch({ url: '/api/posts/' + id }),

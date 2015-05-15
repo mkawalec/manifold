@@ -2,7 +2,7 @@
 import fluxApp from 'fluxapp';
 import {Buffer} from 'buffer/';
 
-export default fluxApp.createStore('session', {
+export default fluxApp.registerStore('session', {
   actions: {
     setSession: 'session.get',
     onLogin: 'session.login'

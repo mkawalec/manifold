@@ -31,9 +31,9 @@ export default React.createClass({
   mixins: [ fluxApp.mixins.component, RequireLogin ],
 
   statics: {
-    load(route, fluxApp) {
-      return RequireLogin.applyAuth(fluxApp).then(
-        () => fluxApp.getActions('posts').getAll()
+    load(route, context) {
+      return RequireLogin.applyAuth(context).then(
+        () => context.getActions('posts').getAll()
       );
     }
   },
@@ -45,7 +45,7 @@ export default React.createClass({
           <PostsList/>
           <Button
             bsStyle='success'
-            onClick={() => fluxApp.getRouter().go('/admin/add-post')}
+            onClick={() => this.context.getRouterActions().go('/admin/add-post')}
             style={STYLE.addBtn}
             >
               Add Post

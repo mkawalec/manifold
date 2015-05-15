@@ -40,18 +40,18 @@ export default React.createClass({
     },
     stores: {
       onPostUpdated: 'post',
-      onRouteChange: fluxApp.getRouter().getStore().id
+      onRouteChange: 'router',
     }
   },
 
   statics: {
-    load(route, fluxApp) {
-      return RequireLogin.applyAuth(fluxApp);
+    load(route, context) {
+      return RequireLogin.applyAuth(context);
     }
   },
 
   onRouteChange() {
-    const currentRoute = fluxApp.getRouter().getStore().state.current;
+    const currentRoute = this.context.getRouterStore().state;
     if (currentRoute.route) {
       this.setState({
         postId: currentRoute.route.params.id
@@ -60,7 +60,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    const currentRoute = fluxApp.getRouter().getStore().state.current;
+    const currentRoute = this.context.getRouterStore().state;
     const postId = currentRoute.route.params.id;
     if (postId) {
       fluxApp.getActions('posts').get(postId);
@@ -73,7 +73,7 @@ export default React.createClass({
   },
 
   onFail(action, error) {
-    fluxApp.getActions('alerts').add({
+    this.getActions('alerts').add({
       message: 'Saving failed. Try again in a moment',
       type: 'error',
       timeout: 10000
@@ -88,18 +88,18 @@ export default React.createClass({
       this.refs.title.getDOMNode().value = post.title;
       this.updateStore();
     } else {
-      fluxApp.getActions('alerts').add({
+      this.getActions('alerts').add({
         message: 'Document saved successfully',
         type: 'success',
         timeout: 1200
       });
-      fluxApp.getRouter().go('/admin/add-post/' + post.id);
+      this.context.getRouterActions.go('/admin/add-post/' + post.id);
     }
   },
 
   updateStore: _.debounce(function() {
     const {value} = this.refs.post.getDOMNode();
-    fluxApp.getActions('draft').update(value);
+    this.getActions('draft').update(value);
   }, 200),
 
   addPost() {
@@ -109,11 +109,11 @@ export default React.createClass({
     };
 
     if (this.state.postId) {
-      fluxApp.getActions('posts').update(R.merge({
+      this.getActions('posts').update(R.merge({
         id: this.state.postId
       }, payload));
     } else {
-      fluxApp.getActions('posts').create(payload);
+      this.getActions('posts').create(payload);
     }
   },
 

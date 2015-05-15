@@ -29,8 +29,8 @@ export default React.createClass({
   mixins: [ fluxApp.mixins.component, RequireLogin ],
 
   static: {
-    load(route, fluxApp) {
-      return RequireLogin.applyAuth(fluxApp);
+    load(route, context) {
+      return RequireLogin.applyAuth(context);
     }
   },
 
@@ -84,7 +84,7 @@ export default React.createClass({
       return this.setState({ passErrors });
     }
 
-    fluxApp.getActions('session').get().spread((action, session) => {
+    this.getActions('session').get().spread((action, session) => {
       UserActions.update({
         id: session.id,
         password: newPass,

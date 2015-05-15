@@ -33,8 +33,8 @@ export default React.createClass({
   },
 
   statics: {
-    load(route, fluxApp) {
-      return redirectMixin.applyAuth(fluxApp);
+    load(route, context) {
+      return redirectMixin.applyAuth(context);
     }
   },
 

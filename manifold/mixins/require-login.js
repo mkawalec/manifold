@@ -1,20 +1,16 @@
 import fluxApp from 'fluxapp';
 
 export default {
-  applyAuth(fluxInterface) {
-    return fluxInterface.getActions('session').get().then(() => {
-      const session = fluxInterface.getStore('session').state;
+  applyAuth(context) {
+    return context.getActions('session').get().then(() => {
+      const session = context.getStore('session').state;
       if (!session || !session.username) {
-        if (fluxInterface.getRouter) {
-          throw fluxInterface.getRouter().go('/login');
-        } else {
-          return fluxApp.getRouter().go('/login');
-        }
+        throw context.getRouterActions().go('/login');
       }
     });
   },
 
-  componentWillMount() {
-    return this.applyAuth(this);
+  componentDidMount() {
+    return this.applyAuth(this.context.flux);
   }
 };

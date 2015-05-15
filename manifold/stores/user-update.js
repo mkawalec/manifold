@@ -1,6 +1,6 @@
 import fluxApp from 'fluxapp';
 
-export default fluxApp.createStore('user-update', {
+export default fluxApp.registerStore('user-update', {
   actions: {
     onUpdate: 'user.update'
   },
