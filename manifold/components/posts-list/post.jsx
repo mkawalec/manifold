@@ -15,6 +15,8 @@ const STYLE = {
 export default React.createClass({
   displayName: 'post',
 
+  mixins: [ fluxApp.mixins.component ],
+
   propTypes: {
     post: React.PropTypes.object.isRequired,
     onClick: React.PropTypes.func,
@@ -27,19 +29,20 @@ export default React.createClass({
 
   edit(e) {
     e.stopPropagation();
-    fluxApp.getRouter().go('/admin/add-post/' + this.props.post.id);
+    this.context.flux.getRouterActions().go(
+      '/admin/add-post/' + this.props.post.id);
   },
 
   delete(e) {
     e.stopPropagation();
-    fluxApp.getActions('posts').delete(this.props.post.id);
+    this.getActions('posts').delete(this.props.post.id);
   },
 
   showPreview() {
-    fluxApp.getActions('posts').get(this.props.post.id)
+    this.getActions('posts').get(this.props.post.id)
       .then(() => {
-        const {post} = fluxApp.getStore('post').state;
-        fluxApp.getActions('draft').update(post);
+        const {post} = this.getStore('post').state;
+        this.getActions('draft').update(post);
       });
 
     if (this.props.onClick) {

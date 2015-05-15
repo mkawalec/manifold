@@ -24,15 +24,16 @@ function appHandler(request, reply) {
   });
 
   if (!routeRequest) {
-    return Promise.reject({ code: 404 });
+    return reply('route not found').code(404);
   }
 
   const route = router.getRouteById(routeRequest.routeId);
   const ContextWrapper = fluxApp.createWrapper();
   const context = fluxApp.createContext({
     fetcher: isoFetch('hapi', {
-      request: request
-    })
+      request,
+    }),
+    getUser: () => request.auth.credentials,
   });
 
   let redirected = false;
@@ -67,11 +68,7 @@ function appHandler(request, reply) {
       state: JSON.stringify(state),
     }));
   }).catch(err => {
-    if (err.then) {
-      err.then(request => {
-        reply.redirect(request.path);
-      });
-    } else {
+    if (! err.then) {
       if (err === 404) {
         reply('Not found, sorry').code(404);
       } else {
@@ -81,25 +78,6 @@ function appHandler(request, reply) {
   });
 }
 
-//  const params = {
-//    cookie: request.headers.cookie
-//  };
-
-//  fluxApp.render(request, params).then(function handler(page) {
-//    const rendered = Mustache.render(indexTemplate, { page });
-//    return reply(rendered);
-//  }).catch(function(err) {
-//    if (err.code === 404) {
-//      return reply('Not found').code(404);
-//    } else if (err.path) {
-//      return reply.redirect(err.path);
-//    } else {
-//      console.log(err.stack);
-//      reply(err);
-//    }
-//  });
-//}
-
 export default (hapi) => {
   StaticController(hapi);
   Routes(hapi);
@@ -107,6 +85,12 @@ export default (hapi) => {
   hapi.route({
     method : '*',
     path : '/{path*}',
+    config : {
+      auth: {
+        mode: 'try',
+        strategy: 'session',
+      },
+    },
     handler : appHandler
   });
 };

@@ -19,7 +19,7 @@ function makeError(msg) {
 }
 
 export default React.createClass({
-  mixins: [ fluxApp.mixins.component, redirectMixin ],
+  mixins: [ fluxApp.mixins.component, RedirectIfLoggedIn('/admin/dashboard') ],
 
   displayName: 'login',
 
@@ -34,7 +34,8 @@ export default React.createClass({
 
   statics: {
     load(route, context) {
-      return redirectMixin.applyAuth(context);
+      let ret = redirectMixin.applyAuth(context);
+      return ret;
     }
   },
 
@@ -51,7 +52,7 @@ export default React.createClass({
   },
 
   isSessionActive() {
-    return redirectMixin.applyAuth(this);
+    return redirectMixin.applyAuth(this.context.flux);
   },
 
   onLogin(e) {

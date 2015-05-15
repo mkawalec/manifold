@@ -1,5 +1,6 @@
 import React from 'react';
 import fluxApp from 'fluxapp';
+import {Link} from 'fluxapp-router/components/';
 
 import {Col, Row} from 'react-bootstrap';
 import Preview from 'manifold/components/preview';
@@ -37,8 +38,6 @@ export default React.createClass({
   },
 
   render() {
-    const {Link} = fluxApp.getRouter().components;
-
     const title = this.props.showMore ? (
       <Link href={ '/post/' + this.props.id }>
         <h1 style={STYLE.header}>{ this.props.title }</h1>

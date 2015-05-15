@@ -31,7 +31,7 @@ export default React.createClass({
   },
 
   onAlertsChange() {
-    const {alerts} = fluxApp.getStore('alerts').state;
+    const {alerts} = this.getStore('alerts').state;
     this.setState({ alerts });
   },
 

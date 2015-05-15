@@ -20,12 +20,14 @@ const STYLE = {
 export default React.createClass({
   displayName: 'alert',
 
+  mixins: [ fluxApp.mixins.component ],
+
   propTypes: {
     alert: React.PropTypes.object.isRequired
   },
 
   dismiss() {
-    fluxApp.getActions('alerts').remove(this.props.alert.id);
+    this.getActions('alerts').remove(this.props.alert.id);
   },
 
   getInitialState() {

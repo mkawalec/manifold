@@ -31,7 +31,7 @@ export default React.createClass({
   },
 
   updateRaw() {
-    const {body} = fluxApp.getStore('draft').state;
+    const {body} = this.getStore('draft').state;
     this.setState({
       parsed : markdown.parse(body)
     });

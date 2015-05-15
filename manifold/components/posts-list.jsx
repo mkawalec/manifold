@@ -36,17 +36,18 @@ export default React.createClass({
   },
 
   postUpdated() {
-    fluxApp.getActions('posts').getAll();
+    this.getActions('posts').getAll();
   },
 
   postsUpdated() {
-    const {posts} = fluxApp.getStore('posts').state;
+    const {posts} = this.getStore('posts').state;
     this.setState({ posts });
   },
 
   componentWillMount() {
-    if (fluxApp.getStore('posts').state.posts.length === 0) {
-      fluxApp.getActions('posts').getAll();
+    console.log('posts state', this.getStore('posts').state);
+    if (this.getStore('posts').state.posts.length === 0) {
+      this.getActions('posts').getAll();
     } else {
       this.postsUpdated();
     }
