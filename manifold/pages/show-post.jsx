@@ -29,10 +29,10 @@ export default React.createClass({
   },
 
   onRouteChange() {
-    const currentRoute = this.context.getRouterStore().state.current;
+    const currentRoute = this.context.getRouterStore().state;
 
-    if (currentRoute.route.params.id) {
-      this.getActions('posts').get(currentRoute.route.params.id);
+    if (currentRoute.params.id) {
+      this.getActions('posts').get(currentRoute.params.id);
     }
   },
 
@@ -41,7 +41,7 @@ export default React.createClass({
   },
 
   showPost() {
-    const post = fluxApp.getStore('post').state;
+    const post = this.getStore('post').state;
     this.setState({ post });
   },
 

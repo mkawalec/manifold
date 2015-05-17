@@ -37,7 +37,7 @@ export default React.createClass({
   componentDidMount() {
     const timeout = this.props.alert.timeout || 2000;
     const timeoutHandle = setTimeout(() => {
-      fluxApp.getActions('alerts').remove(this.props.alert.id);
+      this.getActions('alerts').remove(this.props.alert.id);
     }, timeout);
 
     this.setState({ timeoutHandle });

@@ -39,7 +39,7 @@ export default React.createClass({
 
   render() {
     const title = this.props.showMore ? (
-      <Link href={ '/post/' + this.props.id }>
+      <Link to={ '/post/' + this.props.id }>
         <h1 style={STYLE.header}>{ this.props.title }</h1>
       </Link>
     ) : (
@@ -47,7 +47,7 @@ export default React.createClass({
     );
 
     const moreLink = this.props.showMore ? (
-      <Link href={ '/post/' + this.props.id }>Show more...</Link>
+      <Link to={ '/post/' + this.props.id }>Show more...</Link>
     ) : void(0);
 
     return (

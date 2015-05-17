@@ -22,7 +22,8 @@ export default fluxApp.registerStore('alerts', {
   },
 
   onAdd(toAdd) {
-    const {alerts} = this.state;
+    let alerts = this.state.alerts.asMutable();
+
     toAdd = R.clone(toAdd);
     toAdd.id = uuid.v4();
 

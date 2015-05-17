@@ -2,19 +2,23 @@ import fluxApp from 'fluxapp';
 import R from 'ramda';
 
 export default fluxApp.registerActions('posts', {
-  getAll: () => fluxApp.fetch({ url: '/api/posts' }),
+  getAll() {
+    return this.context.fetcher({ url: '/api/posts' });
+  },
 
-  get: (id) => fluxApp.fetch({ url: '/api/posts/' + id }),
+  get(id) {
+    return this.context.fetcher({ url: '/api/posts/' + id });
+  },
 
   delete: (id) => {
-    return fluxApp.fetch({
+    return this.context.fetcher({
       url: '/api/posts/' + id,
       method: 'DELETE'
     });
   },
 
   create(payload) {
-    return fluxApp.fetch({
+    return this.context.fetcher({
       url: '/api/posts',
       method: 'POST',
       payload
@@ -25,7 +29,7 @@ export default fluxApp.registerActions('posts', {
     const {id} = data;
     const payload = R.omit([ 'id' ], data);
 
-    return fluxApp.fetch({
+    return this.context.fetcher({
       url: '/api/posts/' + id,
       method: 'PUT',
       payload

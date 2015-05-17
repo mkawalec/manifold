@@ -22,7 +22,7 @@ export default [
     handler: Dashboard
   },
   {
-    path: '/admin/add-post/:id?',
+    path: '/admin/add-post(/:id)',
     method: 'GET',
     handler: AddPost
   },

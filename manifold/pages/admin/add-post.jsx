@@ -47,66 +47,68 @@ export default React.createClass({
   statics: {
     load(route, context) {
       return RequireLogin.applyAuth(context);
+    },
+    willTransitionTo() {
+      return true;
     }
   },
 
   onRouteChange() {
-    const currentRoute = this.context.getRouterStore().state;
-    if (currentRoute.route) {
+    const currentRoute = this.context.flux.getRouterStore().state;
+    if (currentRoute) {
       this.setState({
-        postId: currentRoute.route.params.id
+        postId: currentRoute.params.id
       });
     }
   },
 
   componentDidMount() {
-    const currentRoute = this.context.getRouterStore().state;
-    const postId = currentRoute.route.params.id;
+    const currentRoute = this.context.flux.getRouterStore().state;
+    const postId = currentRoute.params.id;
     if (postId) {
-      fluxApp.getActions('posts').get(postId);
+      this.getActions('posts').get(postId);
       this.onRouteChange();
     }
   },
 
   getInitialState() {
-    return {};
+    return {
+      title: '',
+      post: '',
+    };
   },
 
   onFail(action, error) {
     this.getActions('alerts').add({
       message: 'Saving failed. Try again in a moment',
       type: 'error',
-      timeout: 10000
+      timeout: 10000,
     });
   },
 
   onPostUpdated() {
-    const post = fluxApp.getStore('post').state;
+    const post = this.getStore('post').state;
 
-    if (post.post) {
-      this.refs.post.getDOMNode().value = post.post;
-      this.refs.title.getDOMNode().value = post.title;
-      this.updateStore();
-    } else {
+    if (post.id !== this.state.postId) {
+      this.setState({ postId: post.id });
+      this.context.flux.getRouterActions().go('/admin/add-post/' + post.id);
+
       this.getActions('alerts').add({
         message: 'Document saved successfully',
         type: 'success',
-        timeout: 1200
+        timeout: 1200,
       });
-      this.context.getRouterActions.go('/admin/add-post/' + post.id);
+    } else {
+      this.setState(post);
     }
   },
 
   updateStore: _.debounce(function() {
-    const {value} = this.refs.post.getDOMNode();
-    this.getActions('draft').update(value);
+    this.getActions('draft').update(this.state.post);
   }, 200),
 
   addPost() {
-    const payload = {
-      post: this.refs.post.getDOMNode().value,
-      title: this.refs.title.getDOMNode().value,
-    };
+    const payload = R.pick([ 'post', 'title' ], this.state);
 
     if (this.state.postId) {
       this.getActions('posts').update(R.merge({
@@ -117,16 +119,25 @@ export default React.createClass({
     }
   },
 
+  updateInput(fieldName, e) {
+    this.setState({ [fieldName]: e.target.value });
+  },
+
   render() {
     return (
       <AdminLayout>
         <Col md={12}>
-          <input type='text' style={STYLE.title} ref='title' />
+          <input 
+            type='text' 
+            style={STYLE.title} 
+            value={this.state.title}
+            onChange={this.updateInput.bind(this, 'title')}
+           />
         </Col>
         <Col md={6} style={STYLE.col}>
           <textarea
-            ref='post'
-            onChange={this.updateStore}
+            value={this.state.post}
+            onChange={R.compose(this.updateStore, this.updateInput.bind(this, 'post'))}
             style={STYLE.postInput}
             />
             <Button

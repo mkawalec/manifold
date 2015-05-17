@@ -45,7 +45,6 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    console.log('posts state', this.getStore('posts').state);
     if (this.getStore('posts').state.posts.length === 0) {
       this.getActions('posts').getAll();
     } else {
