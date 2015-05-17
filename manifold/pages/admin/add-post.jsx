@@ -127,9 +127,9 @@ export default React.createClass({
     return (
       <AdminLayout>
         <Col md={12}>
-          <input 
-            type='text' 
-            style={STYLE.title} 
+          <input
+            type='text'
+            style={STYLE.title}
             value={this.state.title}
             onChange={this.updateInput.bind(this, 'title')}
            />

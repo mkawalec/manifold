@@ -12,9 +12,9 @@ import StaticController from 'app/static/controller';
 import Routes from 'app/routes';
 import server from 'app/server';
 
-const indexFile     = path.join(__dirname, '/../manifold/index.html');
+const indexFile = path.join(__dirname, '/../manifold/index.html');
 const indexTemplate = fs.readFileSync(indexFile).toString();
-const router        = fluxApp.getRouter();
+const router = fluxApp.getRouter();
 
 Mustache.parse(indexTemplate);
 

@@ -1,3 +1,4 @@
+/* global window,document */
 import 'manifold/bootstrap';
 import fluxApp from 'fluxapp';
 import React from 'react';
