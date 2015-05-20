@@ -4,7 +4,7 @@ import {Col, Input, Button} from 'react-bootstrap';
 import _ from 'lodash';
 import R from 'ramda';
 
-import AdminLayout from 'manifold/components/admin-layout';
+const {AdminLayout} = require('config/client');
 import Preview from 'manifold/components/preview';
 import RequireLogin from 'manifold/mixins/require-login';
 

@@ -4,7 +4,7 @@ import {Input, Col} from 'react-bootstrap';
 import uuid from 'uuid';
 import R from 'ramda';
 
-import AdminLayout from 'manifold/components/admin-layout';
+const {AdminLayout} = require('config/client');
 import RequireLogin from 'manifold/mixins/require-login';
 import Errors from 'manifold/components/errors';
 

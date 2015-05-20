@@ -4,7 +4,7 @@ import Promise from 'bluebird';
 
 import {Row, Col, Button} from 'react-bootstrap';
 import PostsList from 'manifold/components/posts-list';
-import AdminLayout from 'manifold/components/admin-layout';
+const {AdminLayout} = require('config/client');
 import Preview from 'manifold/components/preview';
 import RequireLogin from 'manifold/mixins/require-login';
 

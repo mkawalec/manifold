@@ -9,8 +9,9 @@ const store = new Confidence.Store({
     port : process.env.PORT || 6000,
     env  : env
   },
-  knex   : require('./knex'),
-  session : require('./session')
+  knex    : require('./knex'),
+  session : require('./session'),
+  client  : require('./client'),
 });
 
 export default {

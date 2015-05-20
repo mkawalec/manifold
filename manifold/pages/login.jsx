@@ -5,7 +5,7 @@ import uuid from 'uuid';
 import Promise from 'bluebird';
 
 import {Col, form, Input, Button} from 'react-bootstrap';
-import Layout from 'manifold/components/layout';
+const {Layout} = require('config/client');
 import Errors from 'manifold/components/errors';
 
 import RedirectIfLoggedIn from 'manifold/mixins/redirect-if-logged-in';

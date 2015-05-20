@@ -1,9 +1,10 @@
 import React from 'react';
 import Alerts from 'manifold/components/alerts';
+import immutable from 'seamless-immutable';
 
-const STYLE = {
+const STYLE = immutable({
   height: '100%'
-};
+});
 
 export default React.createClass({
   render() {

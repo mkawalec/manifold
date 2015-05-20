@@ -2,7 +2,7 @@ import React from 'react';
 import fluxApp from 'fluxapp';
 import {Row, Col} from 'react-bootstrap';
 import PostPreview from 'manifold/components/post-preview';
-import Layout from 'manifold/components/layout';
+const {Layout} = require('config/client');
 
 export default React.createClass({
   displayName: 'ShowPost',

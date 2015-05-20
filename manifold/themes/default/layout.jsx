@@ -1,14 +1,14 @@
 import React from 'react';
-import Immutable from 'immutable';
+import immutable from 'seamless-immutable';
 
-const STYLE = Immutable.fromJS({
+const STYLE = immutable({
   marginTop: '30px'
 });
 
 export default React.createClass({
   render() {
     return (
-      <div className='container' style={STYLE.toJS()}>
+      <div className='container' style={STYLE}>
         { this.props.children }
       </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import fluxApp from 'fluxapp';
 import R from 'ramda';
 
-import Layout from 'manifold/components/layout';
+const {Layout} = require('config/client');
 import Preview from 'manifold/components/preview';
 import PostPreview from 'manifold/components/post-preview';
 
