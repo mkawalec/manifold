@@ -7,7 +7,6 @@ import R from 'ramda';
 import AdminLayout from 'manifold/components/admin-layout';
 import RequireLogin from 'manifold/mixins/require-login';
 import Errors from 'manifold/components/errors';
-import UserActions from 'manifold/actions/user';
 
 const PASS_OPTS = {
   type: 'password',
@@ -53,6 +52,7 @@ export default React.createClass({
   },
 
   onUpdate() {
+    console.log('onupdate');
     let {passErrors} = this.state;
     passErrors = [ makeError('Update successful', 'success') ];
 
@@ -85,7 +85,7 @@ export default React.createClass({
     }
 
     this.getActions('session').get().spread((action, session) => {
-      UserActions.update({
+      this.getActions('user').update({
         id: session.id,
         password: newPass,
         oldPassword: oldPass

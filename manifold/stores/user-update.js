@@ -12,9 +12,10 @@ export default fluxApp.registerStore('user-update', {
   },
 
   onUpdate(user) {
+    console.log('got update', user);
     let {updated} = this.state;
-    updated.push(user.id);
+    const newUpdated = updated.concat([ user.id ]);
 
-    this.setState({ updated });
+    this.setState({ updated: newUpdated });
   }
 });

@@ -3,7 +3,7 @@ import R from 'ramda';
 
 export default fluxApp.registerActions('user', {
   update(payload) {
-    return fluxApp.fetch({
+    return this.context.fetcher({
       url: '/api/users/' + payload.id,
       method: 'PUT',
       payload: R.omit([ 'id' ], payload)
