@@ -9,7 +9,7 @@ import Layout from 'manifold/components/layout';
 import Errors from 'manifold/components/errors';
 
 import RedirectIfLoggedIn from 'manifold/mixins/redirect-if-logged-in';
-const redirectMixin = RedirectIfLoggedIn('/admin/dashboard');
+const redirectMixin = RedirectIfLoggedIn('dashboard');
 
 function makeError(msg) {
   return {
@@ -19,7 +19,7 @@ function makeError(msg) {
 }
 
 export default React.createClass({
-  mixins: [ fluxApp.mixins.component, RedirectIfLoggedIn('/admin/dashboard') ],
+  mixins: [ fluxApp.mixins.component, RedirectIfLoggedIn('dashboard') ],
 
   displayName: 'login',
 

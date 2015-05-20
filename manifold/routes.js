@@ -7,34 +7,40 @@ import ShowPost from 'manifold/pages/show-post';
 
 export default [
   {
+    id: 'home',
     path: '/',
     method: 'GET',
-    handler: Home
+    handler: Home,
   },
   {
+    id: 'login',
     path: '/login',
     method: 'GET',
-    handler: Login
+    handler: Login,
   },
   {
+    id: 'dashboard',
     path: '/admin/dashboard',
     method: 'GET',
-    handler: Dashboard
+    handler: Dashboard,
   },
   {
+    id: 'add-post',
     path: '/admin/add-post(/:id)',
     method: 'GET',
-    handler: AddPost
+    handler: AddPost,
   },
   {
+    id: 'user-settings',
     path: '/admin/settings/user',
     method: 'GET',
-    handler: UserSettings
+    handler: UserSettings,
   },
   {
+    id: 'show-post',
     path: '/post/:id',
     method: 'GET',
-    handler: ShowPost
+    handler: ShowPost,
   },
 ]
 

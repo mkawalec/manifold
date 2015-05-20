@@ -29,7 +29,7 @@ export default React.createClass({
   },
 
   onRouteChange() {
-    const currentRoute = this.context.getRouterStore().state;
+    const currentRoute = this.context.flux.getRouterStore().state;
 
     if (currentRoute.params.id) {
       this.getActions('posts').get(currentRoute.params.id);

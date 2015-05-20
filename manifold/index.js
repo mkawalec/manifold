@@ -32,7 +32,7 @@ context.registerRouteHandler(function routeHandler(request) {
     );
   };
 
-  if (!request.lastRequest) {
+  if (request.lastRequest && (request.lastRequest.routeId !== request.routeId)) {
     route.loader(request, context).then(render);
   } else {
     render();

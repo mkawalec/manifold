@@ -38,8 +38,10 @@ export default React.createClass({
   },
 
   render() {
+    const params = { id: this.props.id };
+
     const title = this.props.showMore ? (
-      <Link to={ '/post/' + this.props.id }>
+      <Link to='show-post' meta={{ params }}>
         <h1 style={STYLE.header}>{ this.props.title }</h1>
       </Link>
     ) : (
@@ -47,7 +49,7 @@ export default React.createClass({
     );
 
     const moreLink = this.props.showMore ? (
-      <Link to={ '/post/' + this.props.id }>Show more...</Link>
+      <Link to='show-post' meta={{ params }}>Show more...</Link>
     ) : void(0);
 
     return (

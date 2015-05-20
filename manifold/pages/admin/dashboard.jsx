@@ -45,7 +45,7 @@ export default React.createClass({
           <PostsList/>
           <Button
             bsStyle='success'
-            onClick={() => this.context.flux.getRouterActions().go('/admin/add-post')}
+            onClick={() => this.context.flux.getRouterActions().go('add-post')}
             style={STYLE.addBtn}
             >
               Add Post

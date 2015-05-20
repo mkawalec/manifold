@@ -2,9 +2,9 @@
 
 ### How to get it working
 
-You need to have docker and fig installed, then:
+You need to have docker and docker-compose installed, then:
 
-    sudo npm install -g foreman mariner
+    sudo npm install -g foreman mariner nodemon
     make init
 
 And fire up the interface and the server. In two separate terminals

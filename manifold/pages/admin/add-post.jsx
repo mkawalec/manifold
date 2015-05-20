@@ -91,7 +91,10 @@ export default React.createClass({
 
     if (post.id !== this.state.postId) {
       this.setState({ postId: post.id });
-      this.context.flux.getRouterActions().go('/admin/add-post/' + post.id);
+      const params = { id: post.id };
+
+      this.context.flux.getRouterActions().go(
+        'add-post', { params });
 
       this.getActions('alerts').add({
         message: 'Document saved successfully',

@@ -29,8 +29,10 @@ export default React.createClass({
 
   edit(e) {
     e.stopPropagation();
+    const params = { id: this.props.post.id };
+
     this.context.flux.getRouterActions().go(
-      '/admin/add-post/' + this.props.post.id);
+      'add-post', { params });
   },
 
   delete(e) {
