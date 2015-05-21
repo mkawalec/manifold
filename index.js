@@ -16,8 +16,11 @@ var Bookshelf = require('bookshelf');
 var config = require('config');
 var hapi = require('app/server');
 var knex = require('knex');
+var plugins = require('app/plugins');
 
 Bookshelf.PG = Bookshelf.initialize(knex(config.get('/knex/options')));
+plugins.autoRegister();
+
 require('app/controller')(hapi);
 
 if (! module.parent) {

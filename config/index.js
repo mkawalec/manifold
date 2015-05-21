@@ -12,6 +12,7 @@ const store = new Confidence.Store({
   knex    : require('./knex'),
   session : require('./session'),
   client  : require('./client'),
+  plugins : require('./plugins'),
 });
 
 export default {

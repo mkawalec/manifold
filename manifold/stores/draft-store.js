@@ -1,6 +1,6 @@
-import fluxApp from 'fluxapp';
+import pluginManager from 'app/plugins';
 
-export default fluxApp.registerStore('draft', {
+export default pluginManager.registerStore('draft', {
   actions: {
     onUpdate: 'draft.update'
   },

@@ -1,6 +1,6 @@
-import fluxApp from 'fluxapp';
+import pluginManager from 'app/plugins';
 
-export default fluxApp.registerStore('login', {
+export default pluginManager.registerStore('login', {
   actions: {
     onLogin: 'session.login'
   },

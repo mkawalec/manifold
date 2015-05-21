@@ -1,6 +1,6 @@
-import fluxApp from 'fluxapp';
+import pluginManager from 'app/plugins';
 
-export default fluxApp.registerStore('posts', {
+export default pluginManager.registerStore('posts', {
   actions: {
     onGetAll: 'posts.getAll'
   },

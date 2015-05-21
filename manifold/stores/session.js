@@ -1,8 +1,6 @@
-/*eslint-disable no-undef */
-import fluxApp from 'fluxapp';
-import {Buffer} from 'buffer/';
+import pluginManager from 'app/plugins';
 
-export default fluxApp.registerStore('session', {
+export default pluginManager.registerStore('session', {
   actions: {
     setSession: 'session.get',
     onLogin: 'session.login'
