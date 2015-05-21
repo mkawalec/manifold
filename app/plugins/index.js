@@ -2,7 +2,7 @@ import {plugins} from 'config/plugins';
 import immutable from 'seamless-immutable';
 import fluxApp from 'fluxapp';
 
-import {filter, isArrayLike, forEach, 
+import {filter, isArrayLike, forEach,
   intersection, keys, mapObj, toPairs, reduce} from 'ramda';
 
 
@@ -74,4 +74,4 @@ class PluginManager {
   }
 }
 
-export default new PluginManager;
+export default new PluginManager();
