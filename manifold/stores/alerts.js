@@ -1,8 +1,8 @@
 import uuid from 'uuid';
 import R from 'ramda';
-import pluginManager from 'app/plugins';
+import fluxApp from 'fluxapp';
 
-export default pluginManager.registerStore('alerts', {
+export default fluxApp.registerStore('alerts', {
   actions: {
     onAdd: 'alerts.add',
     onRemove: 'alerts.remove'

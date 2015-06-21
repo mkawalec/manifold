@@ -1,3 +1,3 @@
 #!/bin/bash
 export $(cat .env|xargs)
-mariner migrate up
+node_modules/mariner/dist/cli.js migrate up

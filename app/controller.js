@@ -1,7 +1,7 @@
 import Mustache from 'mustache';
 import fs from 'fs';
 import fluxApp from 'fluxapp';
-import isoFetch from 'iso-fetch';
+import fetcher from 'fluxapp-fetch';
 import path from 'path';
 import Promise from 'bluebird';
 import React from 'react';
@@ -19,61 +19,42 @@ const router = fluxApp.getRouter();
 Mustache.parse(indexTemplate);
 
 function appHandler(request, reply) {
-  const routeRequest = router.build(request.path, {
-    method: request.method
-  });
-
-  if (!routeRequest) {
-    return reply('route not found').code(404);
-  }
-
-  const route = router.getRouteById(routeRequest.routeId);
-  const ContextWrapper = fluxApp.createWrapper();
   const context = fluxApp.createContext({
-    fetcher: isoFetch('hapi', {
+    fetcher: fetcher('hapi', {
       request,
     }),
     getUser: () => request.auth.credentials,
   });
 
-  let redirected = false;
-  context.registerRouteHandler(request => {
-    redirected = true;
-    reply.redirect(request.path);
-  });
+  return context.getPageContext(request.path, {
+    method: request.method,
+    dehydrate: true,
+    async: true,
+  }).then(page => {
+    const markup = page.element ? React.renderToString(page.element) : void(0);
 
-  route.loader(routeRequest, context).then(() => {
-    if (redirected) {
-      return;
+    if (! markup) {
+      throw Boom.notFound();
+    } else {
+      reply(Mustache.render(indexTemplate, {
+        page: markup,
+        state: JSON.stringify({
+          state: page.state(),
+          method: page.method,
+        })
+      }));
     }
-
-    const Component = React.createFactory(ContextWrapper);
-    const markup = React.renderToString(Component({
-      handler: route.handler,
-      context: context,
-      params: routeRequest.params,
-      query: routeRequest.query,
-      request: routeRequest,
-    }));
-
-    const state = {
-      method: request.method,
-      state: context.dehydrate(),
-    };
-
-    context.destroy();
-
-    reply(Mustache.render(indexTemplate, {
-      page: markup,
-      state: JSON.stringify(state),
-    }));
   }).catch(err => {
-    if (! err.then) {
-      if (err === 404) {
-        reply('Not found, sorry').code(404);
-      } else {
-        reply(err);
-      }
+    if (err.then) {
+      return err.then(error => {
+        if (error[0] === 'ROUTER_GO') {
+          reply.redirect(error[1].path);
+        } else {
+          throw error;
+        }
+      });
+    } else {
+      throw err;
     }
   });
 }

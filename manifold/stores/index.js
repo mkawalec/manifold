@@ -1,7 +1,7 @@
-require('./posts');
-require('./post');
-require('./session');
-require('./login');
-require('./draft-store');
-require('./alerts');
-require('./user-update');
+import './posts';
+import './post';
+import './session';
+import './login';
+import './draft-store';
+import './alerts';
+import './user-update';

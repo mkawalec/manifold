@@ -1,6 +1,6 @@
-import pluginManager from 'app/plugins';
+import fluxApp from 'fluxapp';
 
-export default pluginManager.registerStore('post', {
+export default fluxApp.registerStore('post', {
   actions: {
     onUpdate: [ 'posts.create', 'posts.update', 'posts.get', 'draft.setPreview' ],
     onDelete: 'posts.delete'
