@@ -1,6 +1,6 @@
 import React from 'react';
 import fluxApp from 'fluxapp';
-import markdown from 'markdown';
+import marked from 'marked';
 
 const STYLE = {
   wrapper: {
@@ -38,7 +38,7 @@ export default React.createClass({
   },
 
   render() {
-    const html = this.state.parsed || markdown.parse(this.props.post || '');
+    const html = this.state.parsed || marked(this.props.post || '');
 
     return (
       <div
