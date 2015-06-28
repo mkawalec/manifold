@@ -22,12 +22,12 @@ function render(page) {
 context.registerRouteHandler(function routeHandler(request) {
   const isFirstRequest = ! request.lastRequest;
   let options = {
-    async: true,
+    wait: true,
   };
 
   if (isFirstRequest) {
     options = {
-      async: false,
+      wait: false,
       noLoader: true,
       state: serverState.state,
     };
