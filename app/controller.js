@@ -35,7 +35,7 @@ function appHandler(request, reply) {
   return context.getPageContext(request.path, {
     method: request.method,
     dehydrate: true,
-    async: true,
+    wait: true,
   }).then(page => {
     const markup = page.element ? React.renderToString(page.element) : void(0);
 
