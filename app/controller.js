@@ -26,6 +26,12 @@ function appHandler(request, reply) {
     getUser: () => request.auth.credentials,
   });
 
+  // Thanks to that, current route will also be available
+  // on the server side
+  context.getRouterActions().init(request.path, {
+    method: request.method,
+  });
+
   return context.getPageContext(request.path, {
     method: request.method,
     dehydrate: true,
