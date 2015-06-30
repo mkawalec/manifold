@@ -27,8 +27,6 @@ context.registerRouteHandler(function routeHandler(request) {
 
   if (isFirstRequest) {
     options = {
-      wait: false,
-      noLoader: true,
       state: serverState.state,
     };
   }
